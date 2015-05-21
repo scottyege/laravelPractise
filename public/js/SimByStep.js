@@ -21,10 +21,12 @@ $(document).ready(function() {
 
 					var informBlock = $('#information');
 					//informBlock.append('<p>' + obj.step.step + ' : ' + obj.step.turn + ' at ' + obj.step.id + '</p>');
+					var setDiv = $(document.createElement('div'));
 					var p = $(document.createElement('p'));
 					p.text(obj.step.step + ' : ' + obj.step.turn + ' at ' + obj.step.id);
 					
-					informBlock.append(p);
+					//informBlock.append(p);
+					setDiv.append(p);
 
 					//kill
 					var ul = $(document.createElement('ul'));
@@ -41,11 +43,19 @@ $(document).ready(function() {
 						ul.append(li);
 					}
 
-					informBlock.append(ul);
+					setDiv.append(ul);
+
+					informBlock.prepend(setDiv);
 				}
 				else
 				{
 					//console.log('invalid move');
+					var setDiv = $(document.createElement('div'));
+					var p = $(document.createElement('p'));
+					p.text(obj.step.step + ' : ' + obj.step.turn + ' give up');
+
+					setDiv.append(p);
+					$('#information').prepend(setDiv);
 				}
 			}
 		});	
