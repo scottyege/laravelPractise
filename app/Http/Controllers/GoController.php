@@ -84,6 +84,32 @@ class GoController extends Controller {
 		return view('SimByStep')->with('n', $n);
 	}
 
+	public function SimAuto($n = 5, $maxSteps = 10)
+	{
+		$all = array();
+		$board = array();
+
+		SESSION::put('n', $n);
+
+		for($i = 0; $i < $n; $i++)
+		{
+			$row = array();
+			for($j = 0; $j < $n; $j++)
+			{
+				array_push($all, "t-$i-$j");
+				array_push($row, '');
+			}
+			array_push($board, $row);
+		}
+
+		Session::put('all', $all);
+		Session::put('turn', 'black');
+		Session::put('step', 0);
+		Session::put('board', $board);
+
+		return view('SimAuto')->with('n', $n);
+	}
+
 	public function RequestNext()
 	{
 		//ajax

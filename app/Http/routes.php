@@ -32,6 +32,11 @@ Route::get('Go/SimByStep/{n?}/{step?}', 'GoController@SimByStep')
 								->where('n', '[0-9]+')
 								->where('step', '[0-9]+');
 
+Route::get('Go/SimAuto/{n?}/{step?}', 'GoController@SimAuto')
+								->where('n', '[0-9]+')
+								->where('step', '[0-9]+');
+
+
 Route::get('Go/SimByStep/RequestNext', 'GoController@RequestNext');
 
 Route::get('test/{a}/{b}', 'GoController@Test');
