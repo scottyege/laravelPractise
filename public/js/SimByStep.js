@@ -27,7 +27,7 @@ $(document).ready(function() {
 					informBlock.append(p);
 
 					//kill
-					var ol = $(document.createElement('ol'));
+					var ul = $(document.createElement('ul'));
 					for(var i = 0; i < obj.kill.length; i++)
 					{
 						var victim = $('#' + obj.kill[i]);
@@ -38,10 +38,10 @@ $(document).ready(function() {
 
 						var li = $(document.createElement('li'));
 						li.text((obj.step.turn == 'black' ? 'white' : 'black') + ' die at ' + obj.kill[i]);
-						ol.append(li);
+						ul.append(li);
 					}
 
-					informBlock.append(ol);
+					informBlock.append(ul);
 				}
 				else
 				{

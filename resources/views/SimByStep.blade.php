@@ -26,6 +26,10 @@
 		background-color: #FFCC99;
 	}
 
+	ul {
+    	list-style-position: inside;
+	}
+
 	#t1 {
 		background-color: #CCA37A;
 
@@ -55,7 +59,7 @@
 		height: 500px;
 		top:100px;
 		left: 10px;
-		text-align: right;
+		text-align: center;
 	}
 
 	#content {
