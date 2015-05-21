@@ -66,10 +66,10 @@
 		position: absolute;
 		right:0px;
 		top:0px;
-		width: 250px;
+		width: 300px;
 		/*height: 500px;*/
 		/*background-color: red;*/
-		font-size: 50px;
+		font-size: 25px;
 	}
 
 	#content {
@@ -136,7 +136,7 @@
 	<div id='allGames'>
 		@foreach($allGames as $game)
 		<div>
-			<a href="/Go/SimAuto/Show/{{ $game->id }}">{{ $game->id }}</a>
+			<a href="/Go/SimAuto/Show/{{ $game->id }}">{{ $game->id }} - {{ $game->created_at }}</a>
 		</div>
 		@endforeach
 	</div>
