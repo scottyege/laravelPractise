@@ -11,15 +11,6 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
-
-Route::get('home', 'HomeController@index');
-
-Route::controllers([
-	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController',
-]);
-
 Route::get('NineNine', 'NineNineController@index');
 
 Route::get('Go/{n?}', 'GoController@index')->where('n', '[0-9]+');	
@@ -38,3 +29,6 @@ Route::get('Go/SimAuto/{n?}/{step?}', 'GoController@SimAuto')
 
 
 Route::get('Go/SimByStep/RequestNext', 'GoController@RequestNext');
+
+Route::get('Go/SimAuto/Store', 'GoController@Store');
+Route::get('Go/SimAuto/Show/{id}', 'GoController@Show');

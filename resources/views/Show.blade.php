@@ -142,7 +142,67 @@
 	<!-- Scripts -->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
-	<script src="{{ asset('/js/SimAuto.js') }}"></script>
+	<script>
+
+	$(document).ready(function() {
+		
+		var record = '<?php echo $record; ?>';
+		var obj = JSON.parse(record);
+		console.log(obj);
+		for(var i = 0; i < obj.length; i++)
+		{
+			if(obj[i].valid)
+			{
+				var target = $('#' + obj[i].step.id);
+				target.css({
+						'background-color': obj[i].step.turn,
+						'color': (obj[i].step.turn == 'black' ? 'white' : 'black')
+				});
+				target.text(obj[i].step.step);
+
+				var informBlock = $('#information');
+				//informBlock.append('<p>' + obj.step.step + ' : ' + obj.step.turn + ' at ' + obj.step.id + '</p>');
+				var setDiv = $(document.createElement('div'));
+				var p = $(document.createElement('p'));
+				p.text(obj[i].step.step + ' : ' + obj[i].step.turn + ' at ' + obj[i].step.id);
+				
+				//informBlock.append(p);
+				setDiv.append(p);
+
+				//kill
+				var ul = $(document.createElement('ul'));
+				for(var j = 0; j < obj[i].kill.length; j++)
+				{
+					var victim = $('#' + obj[i].kill[j]);
+					victim.css({
+						'background-color': '',
+					});
+					victim.text('');
+
+					var li = $(document.createElement('li'));
+					li.text((obj[i].step.turn == 'black' ? 'white' : 'black') + ' die at ' + obj[i].kill[j]);
+					ul.append(li);
+				}
+
+				setDiv.append(ul);
+
+				informBlock.prepend(setDiv);
+			}
+			else
+			{
+				//console.log('invalid move');
+				var setDiv = $(document.createElement('div'));
+				var p = $(document.createElement('p'));
+				p.text(obj[i].step.step + ' : ' + obj[i].step.turn + ' give up');
+
+				setDiv.append(p);
+				$('#information').prepend(setDiv);
+			}
+		}
+
+	});
+
+	</script>
 
 
 </body>

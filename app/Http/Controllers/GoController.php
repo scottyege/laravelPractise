@@ -3,6 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Board;
 
 use Session;
 use Request;
@@ -13,6 +14,48 @@ class GoController extends Controller {
 	public function index($n = 5)
 	{
 		return view('go')->with('n', $n);
+	}
+
+	public function Store()
+	{
+		$n = Session::get('n');
+		//$board = Session::get('board');
+		$record = Session::get('record');
+
+		$model = new Board;
+		$model->n = $n;
+		$model->data = serialize($record);
+		$model->save();
+
+		return $record;
+	}
+
+	public function Show($id)
+	{
+		$board = Board::find($id);
+
+		$n = $board->n;
+		$record = unserialize($board->data);
+
+		//dd(json_decode(json_encode($record)));
+		return view('Show')->with('n', $n)->with('record', json_encode($record));
+		//return json_encode($record);
+
+		//dd($record);
+		//return $record;
+		// $data = [];
+		// for($i = 0; $i < $n; $i++)
+		// {
+		// 	for($j = 0; $j < $n; $j++)
+		// 	{
+		// 		array_push($data, [
+		// 							'turn' => $board[$i][$j],
+		// 							'id' => "t-$i-$j"
+		// 						]);
+		// 	}
+		// }
+
+		// return view('Show')->with('n', $n)->with('data', json_encode($data));
 	}
 
 	public function Sim($n = 5, $maxSteps = 10)
@@ -74,8 +117,9 @@ class GoController extends Controller {
 
 	public function SimAuto($n = 5, $maxSteps = 10)
 	{
-		$all = array();
-		$board = array();
+		$all = [];
+		$board = [];
+		$record = [];
 
 		SESSION::put('n', $n);
 
@@ -94,6 +138,7 @@ class GoController extends Controller {
 		Session::put('turn', 'black');
 		Session::put('step', 0);
 		Session::put('board', $board);
+		Session::put('record', $record);
 
 		return view('SimAuto')->with('n', $n);
 	}
@@ -105,6 +150,7 @@ class GoController extends Controller {
 		$turn = Session::get('turn');
 		$step = Session::get('step');
 		$board = Session::get('board');
+		$record = Session::get('record');
 
 		//update
 		$step++;
@@ -115,6 +161,7 @@ class GoController extends Controller {
 		$selectedId = '';
 		$candidate = $all;
 		$result = FALSE;
+		$returnMsg = [];
 		do
 		{
 			$selectedIdx = rand(0, count($candidate) - 1);
@@ -136,19 +183,24 @@ class GoController extends Controller {
 		if(count($candidate) == 0)
 		{
 			//no next good step
-			//Session::put('all', $all);
-			Session::put('turn', $turn === 'black' ? 'white' : 'black');
-			Session::put('step', $step);
-			//Session::put('board', $board);
-
-			return json_encode([
+			$returnMsg = [
 				'valid' => false,
 				'step' => [
 					'turn' => $turn,
 					'step' => $step
 				],
 				'kill' => []
-			]);
+			];
+
+			array_push($record, $returnMsg);
+
+			//Session::put('all', $all);
+			Session::put('turn', $turn === 'black' ? 'white' : 'black');
+			Session::put('step', $step);
+			Session::put('record', $record);
+			//Session::put('board', $board);
+
+			return json_encode($returnMsg);
 		}
 
 		array_splice($all, array_search($selectedId, $all), 1);
@@ -167,13 +219,7 @@ class GoController extends Controller {
 			array_push($all, $id);
 		}
 
-		//store
-		Session::put('all', $all);
-		Session::put('turn', $turn === 'black' ? 'white' : 'black');
-		Session::put('step', $step);
-		Session::put('board', $board);
-
-		return json_encode([
+		$returnMsg = [
 			'valid' => true,
 			'step' => [
 				'id' => $selectedId,
@@ -181,7 +227,18 @@ class GoController extends Controller {
 				'step' => $step
 			],
 			'kill' => $killingList
-		]);
+		];
+
+		array_push($record, $returnMsg);
+
+		//store
+		Session::put('all', $all);
+		Session::put('turn', $turn === 'black' ? 'white' : 'black');
+		Session::put('step', $step);
+		Session::put('board', $board);
+		Session::put('record', $record);
+
+		return json_encode($returnMsg);
 
 		// return json_encode([
 		// 			'id' => $selectedId,

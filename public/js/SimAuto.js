@@ -81,4 +81,14 @@ $(document).ready(function() {
 		$('#startBtn').show();
 		$('#stopBtn').hide();
 	})
+
+	$('#saveBtn').click(function(){
+		$.ajax({
+			url: '/Go/SimAuto/Store',
+			headers: { 'X-XSRF-TOKEN' : $('#token').val() },
+			success: function(data){
+				console.log(data);
+			}
+		});
+	})
 });
