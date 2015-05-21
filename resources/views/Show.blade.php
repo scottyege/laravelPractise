@@ -62,6 +62,16 @@
 		text-align: center;
 	}
 
+	#allGames {
+		position: absolute;
+		right:0px;
+		top:0px;
+		width: 250px;
+		/*height: 500px;*/
+		/*background-color: red;*/
+		font-size: 50px;
+	}
+
 	#content {
 		position: relative;
 		left:300px;
@@ -123,6 +133,13 @@
 	<div id='information'>
 	</div>
 
+	<div id='allGames'>
+		@foreach($allGames as $game)
+		<div>
+			<a href="/Go/SimAuto/Show/{{ $game->id }}">{{ $game->id }}</a>
+		</div>
+		@endforeach
+	</div>
 	
 
 	<!-- Scripts -->
@@ -220,7 +237,7 @@
 
 			$('#playBtn').show();
 			$('#stopBtn').hide();
-			
+
 			clearInterval(historyInterval);
 
 		})

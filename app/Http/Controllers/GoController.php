@@ -37,25 +37,11 @@ class GoController extends Controller {
 		$n = $board->n;
 		$record = unserialize($board->data);
 
-		//dd(json_decode(json_encode($record)));
-		return view('Show')->with('n', $n)->with('record', json_encode($record));
-		//return json_encode($record);
+		$allGames = Board::all();
 
-		//dd($record);
-		//return $record;
-		// $data = [];
-		// for($i = 0; $i < $n; $i++)
-		// {
-		// 	for($j = 0; $j < $n; $j++)
-		// 	{
-		// 		array_push($data, [
-		// 							'turn' => $board[$i][$j],
-		// 							'id' => "t-$i-$j"
-		// 						]);
-		// 	}
-		// }
-
-		// return view('Show')->with('n', $n)->with('data', json_encode($data));
+		return view('Show')->with('n', $n)
+							->with('record', json_encode($record))
+							->with('allGames', $allGames);
 	}
 
 	public function Sim($n = 5, $maxSteps = 10)
