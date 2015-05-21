@@ -38,5 +38,3 @@ Route::get('Go/SimAuto/{n?}/{step?}', 'GoController@SimAuto')
 
 
 Route::get('Go/SimByStep/RequestNext', 'GoController@RequestNext');
-
-Route::get('test/{a}/{b}', 'GoController@Test');

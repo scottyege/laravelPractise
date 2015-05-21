@@ -3,24 +3,12 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use Illuminate\Http\Request;
 
 use Session;
+use Request;
+use View;
 
 class GoController extends Controller {
-
-	public function Test($a, $b)
-	{
-		$ar = [];
-		array_push($ar, "t$a$b");
-
-		$t = [3, 51];
-		if(array_search("t{$t[0]}{$t[1]}", $ar) === FALSE)
-		{
-			return 'FALSE';
-		}
-		return 'TRUE';
-	}
 
 	public function index($n = 5)
 	{

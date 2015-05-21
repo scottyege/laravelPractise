@@ -66,11 +66,19 @@ function startAutoRequest(interval)
 
 $(document).ready(function() {
 	
+	$('#stopBtn').hide();
+
 	$('#startBtn').click(function(){
 		startAutoRequest(1500);
+
+		$('#startBtn').hide();
+		$('#stopBtn').show();
 	});
 
 	$('#stopBtn').click(function(){
 		clearInterval(myInterval);
+
+		$('#startBtn').show();
+		$('#stopBtn').hide();
 	})
 });
