@@ -13,7 +13,9 @@
 
 Route::get('NineNine', 'NineNineController@index');
 
-Route::get('Go/{n?}', 'GoController@index')->where('n', '[0-9]+');	
+Route::get('Go', 'GoController@Index');
+
+Route::get('Go/{n?}', 'GoController@Normal')->where('n', '[0-9]+');	
 
 Route::get('Go/Sim/{n?}/{step?}', 'GoController@Sim')
 								->where('n', '[0-9]+')

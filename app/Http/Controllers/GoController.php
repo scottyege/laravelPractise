@@ -11,9 +11,14 @@ use View;
 
 class GoController extends Controller {
 
-	public function index($n = 5)
+	public function Index()
 	{
-		return view('go')->with('n', $n);
+		return 'index';
+	}
+
+	public function Normal($n = 5)
+	{
+		return view('go')->with('n', $n);	
 	}
 
 	public function Store()
