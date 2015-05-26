@@ -16,12 +16,12 @@ class GoController extends Controller {
 		$allGames = Board::all();
 
 		//return view('Index')->with('allGames', $allGames);
-		return view('go.Base')->with('allGames', $allGames);
+		return view('go.Base')->with(['allGames' => $allGames]);
 	}
 
 	public function Normal($n = 5)
 	{
-		return view('go')->with('n', $n);	
+		return view('go')->with(['n' => $n]);	
 	}
 
 	public function Store()
@@ -50,10 +50,12 @@ class GoController extends Controller {
 		// return view('Show')->with('n', $n)
 		// 					->with('record', json_encode($record))
 		// 					->with('allGames', $allGames);
-		return view('go.Show')->with('n', $n)
-							->with('record', json_encode($record))
-							->with('created_at', $board->created_at)
-							->with('allGames', $allGames);
+		return view('go.Show')->with([
+									'n' => $n,
+									'record' => json_encode($record),
+									'created_at' => $board->created_at,
+									'allGames' => $allGames
+								]);
 	}
 
 	public function Sim($n = 5, $maxSteps = 10)
@@ -82,8 +84,10 @@ class GoController extends Controller {
 		}
 
 		//dd($steps);
-		 return view('Sim')->with('steps', json_encode($steps))
-		 					->with('n', $n);
+		 return view('Sim')->with([
+		 						'steps' => json_encode($steps),
+		 						'n' => $n
+		 					]);
 		//return json_encode($steps);
 	}
 
@@ -110,7 +114,7 @@ class GoController extends Controller {
 		Session::put('step', 0);
 		Session::put('board', $board);
 
-		return view('SimByStep')->with('n', $n);
+		return view('SimByStep')->with(['n' => $n]);
 	}
 
 	public function SimAuto($n = 5, $maxSteps = 10)
@@ -143,8 +147,10 @@ class GoController extends Controller {
 
 		$allGames= Board::all();
 
-		return view('go.SimAuto')->with('n', $n)
-									->with('allGames', $allGames);
+		return view('go.SimAuto')->with([
+									'n' => $n, 
+									'allGames' => $allGames
+								]);
 	}
 
 	public function RequestNext()

@@ -73,11 +73,13 @@ function startAutoRequest(interval)
 $(document).ready(function() {
 	
 	$('#stopBtn').hide();
+	$('#saveBtn').hide();
 
 	$('#startBtn').click(function(){
 		startAutoRequest(1500);
 
 		$('#startBtn').hide();
+		$('#saveBtn').hide();
 		$('#stopBtn').show();
 	});
 
@@ -85,6 +87,7 @@ $(document).ready(function() {
 		clearInterval(myInterval);
 
 		$('#startBtn').show();
+		$('#saveBtn').show();
 		$('#stopBtn').hide();
 	})
 
