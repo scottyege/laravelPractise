@@ -42,17 +42,18 @@
 		/*background-color: green;*/
 	}
 
-	.td1 {
-		width:100px;
-		height:100px;
-		border-style: solid;
-		text-align: center;
-	}
 	</style>
 
 </head>
 <body>
 
+	<div id='nav'>
+		<ul>
+			<li><a href="/Go/SimAuto/7/15">產生新棋局</a></li>
+		<ul>
+	</div>
+
+<ul>
 	<div id='allGames'>
 		<ol>
 		@foreach($allGames as $game)

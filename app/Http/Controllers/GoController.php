@@ -132,6 +132,7 @@ class GoController extends Controller {
 		Session::put('step', 0);
 		Session::put('board', $board);
 		Session::put('record', $record);
+		Session::put('maxSteps', $maxSteps);
 
 		return view('SimAuto')->with('n', $n);
 	}
@@ -144,9 +145,16 @@ class GoController extends Controller {
 		$step = Session::get('step');
 		$board = Session::get('board');
 		$record = Session::get('record');
+		$maxSteps = Session::get('maxSteps');
 
 		//update
 		$step++;
+		if($step > $maxSteps)
+		{
+			return json_encode([
+					'gameOver' => true
+				]);			
+		}
 
 		$x = 0;
 		$y = 0;

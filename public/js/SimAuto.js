@@ -10,7 +10,13 @@ function startAutoRequest(interval)
 					console.log(data);
 
 					var obj = JSON.parse(data);
-			
+
+					if(obj.gameOver !== undefined)
+					{
+						console.log('gg');
+						clearInterval(myInterval);
+						return;
+					}
 
 					if(obj.valid)
 					{
