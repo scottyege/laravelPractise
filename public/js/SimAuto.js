@@ -14,7 +14,12 @@ function startAutoRequest(interval)
 					if(obj.gameOver !== undefined)
 					{
 						console.log('gg');
+
 						clearInterval(myInterval);
+						$('#startBtn').hide();
+						$('#saveBtn').show();
+						$('#stopBtn').hide();
+
 						return;
 					}
 
@@ -94,12 +99,12 @@ $(document).ready(function() {
 	$('#saveBtn').click(function(){
 		$.ajax({
 			url: '/Go/SimAuto/Store',
-			headers: { 'X-XSRF-TOKEN' : $('#token').val() },
+			//headers: { 'X-XSRF-TOKEN' : $('#token').val() },
 			success: function(data){
 				//console.log(data);
 				var obj = JSON.parse(data);
 				var ol = $('#allGames');
-				ol.append("<li><a href='/Go/SimAuto/Show/" + obj.id + "'>" + obj.created_at + "</a></li>");
+				ol.prepend("<li><a href='/Go/SimAuto/Show/" + obj.id + "'>" + obj.created_at + "</a></li>");
 			}
 		});
 	})

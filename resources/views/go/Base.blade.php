@@ -46,11 +46,16 @@
 		<ul>
 
 		<ol id='allGames'>
-			@foreach($allGames as $game)
+
+			<?php
+				$countMinus1 = count($allGames) - 1;
+			?>
+			@for($i = $countMinus1; $i >= 0; $i--)
 			<li>
-				<a href="/Go/SimAuto/Show/{{ $game->id }}">{{ $game->created_at }}</a>
+				<a href="/Go/SimAuto/Show/{{ $allGames[$i]->id }}">{{ $allGames[$i]->created_at }}</a>
 			</li>
-			@endforeach
+			@endfor
+
 		</ol>
 	</div>
 	

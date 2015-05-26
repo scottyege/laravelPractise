@@ -170,6 +170,8 @@
 			if(historyIdx >= maxLenght)
 			{
 				clearInterval(historyInterval);
+				$('#playBtn').show();
+				$('#stopBtn').hide();
 			}
 		}, interval);
 	}
