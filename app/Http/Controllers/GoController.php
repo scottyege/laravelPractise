@@ -52,6 +52,7 @@ class GoController extends Controller {
 		// 					->with('allGames', $allGames);
 		return view('go.Show')->with('n', $n)
 							->with('record', json_encode($record))
+							->with('created_at', $board->created_at)
 							->with('allGames', $allGames);
 	}
 

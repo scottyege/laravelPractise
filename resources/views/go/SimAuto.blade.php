@@ -1,5 +1,9 @@
 @extends('go.Base');
 
+@section('title')
+SimAuto
+@stop
+
 @section('css')
 	<style type="text/css">
 

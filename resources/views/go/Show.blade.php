@@ -1,5 +1,9 @@
 @extends('go.Base');
 
+@section('title')
+{{ $created_at }}
+@stop
+
 @section('css')
 	<style type="text/css">
 
