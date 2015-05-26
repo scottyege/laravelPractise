@@ -13,7 +13,9 @@ class GoController extends Controller {
 
 	public function Index()
 	{
-		return 'index';
+		$allGames = Board::all();
+
+		return view('Index')->with('allGames', $allGames);
 	}
 
 	public function Normal($n = 5)
