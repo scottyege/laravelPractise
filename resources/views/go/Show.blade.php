@@ -78,9 +78,12 @@
 		<a id='stopBtn' class="btn btn-default btn-lg">Stop</a>
 
 		<table id='t1'>
-			@for($i = 0; $i < ($n - 1); $i++)
+			<?php
+				$nminus1 = $n - 1;
+			?>
+			@for($i = 0; $i < $nminus1; $i++)
 			<tr>
-				@for($j = 0; $j < ($n - 1); $j++)
+				@for($j = 0; $j < $nminus1; $j++)
 				<td class='td1'></td>
 				@endfor
 			</tr>
