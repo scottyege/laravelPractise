@@ -93,7 +93,10 @@ $(document).ready(function() {
 			url: '/Go/SimAuto/Store',
 			headers: { 'X-XSRF-TOKEN' : $('#token').val() },
 			success: function(data){
-				console.log(data);
+				//console.log(data);
+				var obj = JSON.parse(data);
+				var ol = $('#allGames');
+				ol.append("<li><a href='/Go/SimAuto/Show/" + obj.id + "'>" + obj.created_at + "</a></li>");
 			}
 		});
 	})

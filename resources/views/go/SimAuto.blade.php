@@ -3,10 +3,6 @@
 @section('css')
 	<style type="text/css">
 
-	ul {
-    	list-style-position: inside;
-	}
-
 	#t1 {
 		background-color: #CCA37A;
 
@@ -36,7 +32,7 @@
 	}
 
 	#information {
-		position: relative;
+		position: absolute;
 		/*background-color: red;*/
 		width: 250px;
 		height: 500px;

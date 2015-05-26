@@ -4,6 +4,74 @@
 		"selected_items":
 		[
 			[
+				"font",
+				"font-size"
+			],
+			[
+				"backgrou",
+				"background-color"
+			],
+			[
+				"max",
+				"maxLenght〔variable〕"
+			],
+			[
+				"his",
+				"historyIdx〔variable〕"
+			],
+			[
+				"hist",
+				"historyInterval〔variable〕"
+			],
+			[
+				"hi",
+				"historyIdx"
+			],
+			[
+				"histor",
+				"historyInterval〔variable〕"
+			],
+			[
+				"json",
+				"json_encode〔function〕"
+			],
+			[
+				"json_",
+				"json_encode〔function〕"
+			],
+			[
+				"return",
+				"$returnMsg〔variable〕"
+			],
+			[
+				"js",
+				"json_encode"
+			],
+			[
+				"fun",
+				"function〔keyword〕"
+			],
+			[
+				"ready",
+				"ready	$(document).ready"
+			],
+			[
+				"h",
+				"h1	Tag"
+			],
+			[
+				"clea",
+				"clearInterval〔function〕"
+			],
+			[
+				"inter",
+				"interval〔argument〕"
+			],
+			[
+				"pre",
+				"prepend	.prepend()"
+			],
+			[
 				"create",
 				"createElement〔function〕"
 			],
@@ -48,16 +116,8 @@
 				"ready	$(document).ready"
 			],
 			[
-				"ready",
-				"ready	document.ready - $(function(){})"
-			],
-			[
 				"mar",
 				"margin"
-			],
-			[
-				"json",
-				"json_encode〔function〕"
 			],
 			[
 				"backgr",
@@ -121,13 +181,24 @@
 	},
 	"file_history":
 	[
-		"/C/Users/scott_Chiu/Desktop/LaravelPractise/app/Http/routes.php",
-		"/C/Users/scott_Chiu/Desktop/LaravelPractise/public/css/app.css",
+		"/C/Users/scott_Chiu/Desktop/LaravelPractise/public/js/SimAuto.js",
+		"/C/Users/scott_Chiu/Desktop/LaravelPractise/app/Board.php",
+		"/C/Users/scott_Chiu/Desktop/LaravelPractise/resources/views/go.blade.php",
 		"/C/Users/scott_Chiu/Desktop/LaravelPractise/resources/views/Sim.blade.php",
+		"/C/Users/scott_Chiu/Desktop/LaravelPractise/resources/views/SimAuto.blade.php",
+		"/C/Users/scott_Chiu/Desktop/LaravelPractise/resources/views/SimByStep.blade.php",
+		"/C/Users/scott_Chiu/Desktop/LaravelPractise/public/js/Show.js",
+		"/C/Users/scott_Chiu/Desktop/LaravelPractise/database/migrations/2015_05_21_055415_create_boards_table.php",
+		"/C/Users/scott_Chiu/Desktop/LaravelPractise/database/migrations/2015_05_21_055849_AddN.php",
+		"/C/Users/scott_Chiu/Desktop/LaravelPractise/app/User.php",
+		"/C/Users/scott_Chiu/Desktop/LaravelPractise/.env",
+		"/C/Users/scott_Chiu/Desktop/LaravelPractise/resources/views/test.blade.php",
+		"/C/Users/scott_Chiu/Desktop/LaravelPractise/resources/views/testsmall.blade.php",
+		"/C/Users/scott_Chiu/Desktop/LaravelPractise/public/js/SimByStep.js",
+		"/C/Users/scott_Chiu/Desktop/LaravelPractise/public/css/app.css",
+		"/C/Users/scott_Chiu/Desktop/LaravelPractise/app/Http/routes.php",
 		"/C/Users/scott_Chiu/Desktop/LaravelPractise/resources/views/NineNine.blade.php",
 		"/C/Users/scott_Chiu/Desktop/LaravelPractise/app/Http/Controllers/NineNineController.php",
-		"/C/Users/scott_Chiu/Desktop/LaravelPractise/resources/views/go.blade.php",
-		"/C/Users/scott_Chiu/Desktop/LaravelPractise/app/User.php",
 		"/C/Users/scott_Chiu/Desktop/LaravelPractise/resources/views/app.blade.php",
 		"/C/Users/scott_Chiu/Desktop/LaravelPractise/resources/views/home.blade.php",
 		"/C/Users/scott_Chiu/Desktop/LaravelPractise/resources/views/welcome.blade.php",

@@ -26,11 +26,8 @@
 		}
 
 		#nav {
-			font-size: 25px;
-		}
-
-		#allGames {
-			width: 300px;
+			position: absolute;
+			right: 50px;
 			font-size: 25px;
 		}
 	</style>
@@ -47,16 +44,13 @@
 		<ul>
 			<li><a href="/Go/SimAuto/7/15">產生新棋局</a></li>
 		<ul>
-	</div>
 
-
-	<div id='allGames'>
-		<ol>
-		@foreach($allGames as $game)
-		<li>
-			<a href="/Go/SimAuto/Show/{{ $game->id }}">{{ $game->created_at }}</a>
-		</li>
-		@endforeach
+		<ol id='allGames'>
+			@foreach($allGames as $game)
+			<li>
+				<a href="/Go/SimAuto/Show/{{ $game->id }}">{{ $game->created_at }}</a>
+			</li>
+			@endforeach
 		</ol>
 	</div>
 	

@@ -35,7 +35,7 @@ class GoController extends Controller {
 		$model->data = serialize($record);
 		$model->save();
 
-		return $record;
+		return $model->toJson();
 	}
 
 	public function Show($id)
