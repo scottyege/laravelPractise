@@ -15,7 +15,8 @@ class GoController extends Controller {
 	{
 		$allGames = Board::all();
 
-		return view('Index')->with('allGames', $allGames);
+		//return view('Index')->with('allGames', $allGames);
+		return view('go.Base')->with('allGames', $allGames);
 	}
 
 	public function Normal($n = 5)
@@ -46,7 +47,10 @@ class GoController extends Controller {
 
 		$allGames = Board::all();
 
-		return view('Show')->with('n', $n)
+		// return view('Show')->with('n', $n)
+		// 					->with('record', json_encode($record))
+		// 					->with('allGames', $allGames);
+		return view('go.Show')->with('n', $n)
 							->with('record', json_encode($record))
 							->with('allGames', $allGames);
 	}
@@ -134,7 +138,12 @@ class GoController extends Controller {
 		Session::put('record', $record);
 		Session::put('maxSteps', $maxSteps);
 
-		return view('SimAuto')->with('n', $n);
+		// return view('SimAuto')->with('n', $n);
+
+		$allGames= Board::all();
+
+		return view('go.SimAuto')->with('n', $n)
+									->with('allGames', $allGames);
 	}
 
 	public function RequestNext()
