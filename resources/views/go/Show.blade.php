@@ -23,9 +23,28 @@
 		left: 160px;
 	}
 
+	#horizontalIdx {
+		/*background-color: red;*/
+		font-size: 20px;
+		z-index: -100;
+
+		position: absolute;
+		top:95px;
+		left:130px;
+	}
+
+	#verticalIdx {
+		/*background-color: red;*/
+		font-size: 20px;
+
+		position: absolute;
+		top:150px;
+		left:95px;
+	}
+
 	#playBtn, #stopBtn {
 		position: absolute;
-		top: 100px;
+		top: 80px;
 		left: 100px;
 	}
 
@@ -42,7 +61,7 @@
 	#content {
 		position: relative;
 		left:300px;
-		/*background-color: green;*/
+		background-color: green;
 	}
 
 	.td1 {
@@ -58,6 +77,23 @@
 		/*border-style: solid;*/
 		text-align: center;
 		cursor: pointer;
+	}
+
+	.horizontalIdxCell {
+		width:100px;
+		height:100px;
+
+		display: inline-block;
+		text-align: center;
+		line-height: 100px;
+	}
+
+	.verticalIdxCell {
+		width:100px;
+		height:100px;
+
+		text-align: center;
+		line-height: 100px;
 	}
 
 	.cross {
@@ -102,6 +138,19 @@
 			</tr>
 			@endfor
 		</table>
+
+		<div id='horizontalIdx'>
+			@for($i = 0; $i < $n; $i++)
+			<div class='horizontalIdxCell'>{{ $i }}</div>
+			@endfor
+		</div>
+
+		<div id='verticalIdx'>
+			@for($i = 0; $i < $n; $i++)
+			<div class='verticalIdxCell'>{{ $i }}</div>
+			@endfor
+		</div>
+
 	</div>
 
 	<div id='information'>

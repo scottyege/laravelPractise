@@ -23,15 +23,34 @@ SimAuto
 		left: 160px;
 	}
 
+	#horizontalIdx {
+		/*background-color: red;*/
+		font-size: 20px;
+		z-index: -100;
+
+		position: absolute;
+		top:95px;
+		left:130px;
+	}
+
+	#verticalIdx {
+		/*background-color: red;*/
+		font-size: 20px;
+
+		position: absolute;
+		top:150px;
+		left:95px;
+	}
+
 	#startBtn, #stopBtn {
 		position: absolute;
-		top: 100px;
+		top: 80px;
 		left: 100px;
 	}
 
 	#saveBtn {
 		position: absolute;
-		top: 100px;
+		top: 80px;
 		left: 200px;
 	}
 
@@ -64,6 +83,23 @@ SimAuto
 		/*border-style: solid;*/
 		text-align: center;
 		cursor: pointer;
+	}
+
+	.horizontalIdxCell {
+		width:100px;
+		height:100px;
+
+		display: inline-block;
+		text-align: center;
+		line-height: 100px;
+	}
+
+	.verticalIdxCell {
+		width:100px;
+		height:100px;
+
+		text-align: center;
+		line-height: 100px;
 	}
 
 	.cross {
@@ -116,6 +152,18 @@ SimAuto
 			</tr>
 			@endfor
 		</table>
+
+		<div id='horizontalIdx'>
+			@for($i = 0; $i < $n; $i++)
+			<div class='horizontalIdxCell'>{{ $i }}</div>
+			@endfor
+		</div>
+
+		<div id='verticalIdx'>
+			@for($i = 0; $i < $n; $i++)
+			<div class='verticalIdxCell'>{{ $i }}</div>
+			@endfor
+		</div>
 	</div>
 
 	<div id='information'>
