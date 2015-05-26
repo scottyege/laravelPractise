@@ -26,22 +26,19 @@
 		background-color: #FFCC99;
 	}
 
+	#nav {
+		font-size: 25px;
+	}
+
 	#allGames {
-		position: absolute;
+		/*position: absolute;
 		right:0px;
-		top:0px;
+		top:0px;*/
 		width: 300px;
 		/*height: 500px;*/
 		/*background-color: red;*/
 		font-size: 25px;
 	}
-
-	#content {
-		position: relative;
-		left:300px;
-		/*background-color: green;*/
-	}
-
 	</style>
 
 </head>
@@ -53,7 +50,7 @@
 		<ul>
 	</div>
 
-<ul>
+
 	<div id='allGames'>
 		<ol>
 		@foreach($allGames as $game)
