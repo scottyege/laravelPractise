@@ -67,6 +67,9 @@
 		line-height: 90px;
 	}
 
+	.killed {
+		color: red;
+	}
 	</style>
 @stop
 
@@ -144,10 +147,12 @@
 					victim.css({
 						'background-color': '',
 					});
+
 					victim.text('');
 
 					var li = $(document.createElement('li'));
 					li.text((obj[historyIdx].step.turn == 'black' ? 'white' : 'black') + ' die at ' + obj[historyIdx].kill[j]);
+					li.addClass('killed');
 					ul.append(li);
 				}
 

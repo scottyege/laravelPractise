@@ -73,6 +73,10 @@ SimAuto
 		line-height: 90px;
 	}
 
+	.killed {
+		color: red;
+	}
+
 	</style>
 @stop
 

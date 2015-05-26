@@ -53,6 +53,7 @@ function startAutoRequest(interval)
 
 							var li = $(document.createElement('li'));
 							li.text((obj.step.turn == 'black' ? 'white' : 'black') + ' die at ' + obj.kill[i]);
+							li.addClass('killed');
 							ul.append(li);
 						}
 
