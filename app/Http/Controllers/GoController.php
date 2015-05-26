@@ -15,7 +15,6 @@ class GoController extends Controller {
 	{
 		$allGames = Board::all();
 
-		//return view('Index')->with('allGames', $allGames);
 		return view('go.Base')->with(['allGames' => $allGames]);
 	}
 
@@ -47,9 +46,6 @@ class GoController extends Controller {
 
 		$allGames = Board::all();
 
-		// return view('Show')->with('n', $n)
-		// 					->with('record', json_encode($record))
-		// 					->with('allGames', $allGames);
 		return view('go.Show')->with([
 									'n' => $n,
 									'record' => json_encode($record),
@@ -83,12 +79,11 @@ class GoController extends Controller {
 			$turn = !$turn;
 		}
 
-		//dd($steps);
+
 		 return view('Sim')->with([
 		 						'steps' => json_encode($steps),
 		 						'n' => $n
 		 					]);
-		//return json_encode($steps);
 	}
 
 	public function SimByStep($n = 5, $maxSteps = 10)
@@ -143,11 +138,42 @@ class GoController extends Controller {
 		Session::put('record', $record);
 		Session::put('maxSteps', $maxSteps);
 
-		// return view('SimAuto')->with('n', $n);
-
 		$allGames= Board::all();
 
 		return view('go.SimAuto')->with([
+									'n' => $n, 
+									'allGames' => $allGames
+								]);
+	}
+
+	public function HumanComputer($n = 7)
+	{
+		$all = [];
+		$board = [];
+		$record = [];
+
+		SESSION::put('n', $n);
+
+		for($i = 0; $i < $n; $i++)
+		{
+			$row = array();
+			for($j = 0; $j < $n; $j++)
+			{
+				array_push($all, "t-$i-$j");
+				array_push($row, '');
+			}
+			array_push($board, $row);
+		}
+
+		Session::put('all', $all);
+		Session::put('turn', 'black');
+		Session::put('step', 0);
+		Session::put('board', $board);
+		Session::put('record', $record);
+
+		$allGames= Board::all();
+
+		return view('go.HCC')->with([
 									'n' => $n, 
 									'allGames' => $allGames
 								]);
@@ -255,13 +281,7 @@ class GoController extends Controller {
 		Session::put('board', $board);
 		Session::put('record', $record);
 
-		return json_encode($returnMsg);
-
-		// return json_encode([
-		// 			'id' => $selectedId,
-		// 			'turn' => $turn,
-		// 			'step' => $step
-		// 		]);						
+		return json_encode($returnMsg);				
 	}
 
 	//-----------------------------------------
