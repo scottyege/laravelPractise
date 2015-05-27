@@ -54,64 +54,6 @@ class GoController extends Controller {
 								]);
 	}
 
-	public function Sim($n = 5, $maxSteps = 10)
-	{
-		$steps = array();
-
-		$all = array();
-		for($i = 0; $i < $n; $i++)
-		{
-			for($j = 0; $j < $n; $j++)
-			{
-				array_push($all, "t$i$j");
-			}
-		}
-
-		shuffle($all);
-
-		$turn = 0;
-		for($i = 0; $i < $maxSteps; $i++)
-		{
-			array_push($steps, [
-									'id' => $all[$i],
-									'turn' => (!$turn ? 'black': 'white')
-							]);
-			$turn = !$turn;
-		}
-
-
-		 return view('Sim')->with([
-		 						'steps' => json_encode($steps),
-		 						'n' => $n
-		 					]);
-	}
-
-	public function SimByStep($n = 5, $maxSteps = 10)
-	{
-		$all = array();
-		$board = array();
-
-		SESSION::put('n', $n);
-
-		for($i = 0; $i < $n; $i++)
-		{
-			$row = array();
-			for($j = 0; $j < $n; $j++)
-			{
-				array_push($all, "t-$i-$j");
-				array_push($row, '');
-			}
-			array_push($board, $row);
-		}
-
-		Session::put('all', $all);
-		Session::put('turn', 'black');
-		Session::put('step', 0);
-		Session::put('board', $board);
-
-		return view('SimByStep')->with(['n' => $n]);
-	}
-
 	public function SimAuto($n = 5, $maxSteps = 10)
 	{
 		$all = [];

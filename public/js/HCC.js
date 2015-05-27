@@ -50,24 +50,6 @@ function process(data)
 	}
 }
 
-function shakeWindow(n) 
-{ 
-	var i,j; 
-	if(top.moveBy) 
-	{ 
-		for(i=10; i>0; i--) 
-		{
-			for(j=n; j>0; j--) 
-			{ 
-				top.moveBy(0,i); 
-				top.moveBy(i,0); 
-				top.moveBy(0,-i); 
-				top.moveBy(-i,0); 
-			} 
-		}
-	} 
-} 
-
 $(document).ready(function() {
 
 	$('.cross').attr('turn', '');
@@ -101,7 +83,6 @@ $(document).ready(function() {
 		else
 		{
 			console.log('invalid move');
-			shakeWindow(10);
 		}
 
 	});
