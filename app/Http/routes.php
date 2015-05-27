@@ -25,7 +25,7 @@ Route::get('Go/SimByStep/RequestNext', 'GoController@RequestNext');
 
 
 Route::get('Go/HCC/CheckValidState', 'GoController@CheckValidState');
-Route::get('Go/HCC/HCCRequestNext', 'GoController@HCCRequestNext');
+//Route::get('Go/HCC/HCCRequestNext', 'GoController@HCCRequestNext');
 Route::get('Go/HCC/{n?}', 'GoController@HumanComputer');
 
 

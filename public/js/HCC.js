@@ -74,7 +74,7 @@ $(document).ready(function() {
 					process(data);
 
 					$.ajax({
-						url: '/Go/HCC/HCCRequestNext',
+						url: '/Go/SimByStep/RequestNext',
 						success: function(data)
 						{
 							process(data);

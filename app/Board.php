@@ -49,17 +49,15 @@ class Board extends Model {
 		$n = session('n');
 
 		$ally = $turn;
-		//$enemy = ($turn === 'black' ? 'white' : 'black');
 
 		$backupState = $board[$x][$y];
 		$board[$x][$y] = $turn;
 
 		$candidates = [];//
-		$pastCandidates = [];//have been searched
+		$pastCandidates = [];//those have been searched
 		array_push($candidates, [$x, $y]);
 		while(!empty($candidates))
 		{
-			//$target = $candidates[count($candidates) - 1];
 			$target = array_pop($candidates);
 
 			if($target[1]-1 >= 0)
