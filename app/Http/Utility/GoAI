@@ -1,9 +1,0 @@
-<?php namespace App\Utility;
-
-class GoAI
-{
-
-}
-
-
-?>
