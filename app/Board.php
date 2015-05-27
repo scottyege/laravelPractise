@@ -36,8 +36,7 @@ class Board extends Model {
 		// Session::put('board', $board);
 		// Session::put('record', $record);
 		// Session::put('maxSteps', $maxSteps);
-
-		Board::SaveData([
+		session([
 			'n' => $n,
 			'all' => $all,
 			'turn' => 'black',
@@ -46,10 +45,5 @@ class Board extends Model {
 			'record' => $record,
 			'maxSteps' => $maxSteps
 		]);
-	}
-
-	static public function SaveData($options)
-	{
-		session($options);
 	}
 }

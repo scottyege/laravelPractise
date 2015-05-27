@@ -145,7 +145,7 @@ class GoController extends Controller {
 		// Session::put('step', $step);
 		// Session::put('board', $board);
 		// Session::put('record', $record);
-		Board::SaveData([
+		session([
 			'all' => $all,
 			'turn' => ($turn === 'black' ? 'white' : 'black'),
 			'step' => $step,
@@ -208,7 +208,7 @@ class GoController extends Controller {
 			// Session::put('turn', $turn === 'black' ? 'white' : 'black');
 			// Session::put('step', $step);
 			// Session::put('record', $record);
-			Board::SaveData([
+			session([
 				'turn' => ($turn === 'black' ? 'white' : 'black'),
 				'step' => $step,
 				'record' => $record
@@ -253,7 +253,7 @@ class GoController extends Controller {
 		// Session::put('step', $step);
 		// Session::put('board', $board);
 		// Session::put('record', $record);
-		Board::SaveData([
+		session([
 			'all' => $all,
 			'turn' => ($turn === 'black' ? 'white' : 'black'),
 			'step' => $step,
@@ -326,7 +326,7 @@ class GoController extends Controller {
 			// Session::put('step', $step);
 			// Session::put('record', $record);
 
-			Board::SaveData([
+			session([
 				'turn' => ($turn === 'black' ? 'white' : 'black'),
 				'step' => $step,
 				'record' => $record
@@ -369,7 +369,7 @@ class GoController extends Controller {
 		// Session::put('step', $step);
 		// Session::put('board', $board);
 		// Session::put('record', $record);
-		Board::SaveData([
+		session([
 			'all' => $all,
 			'turn' => ($turn === 'black' ? 'white' : 'black'),
 			'step' => $step,
