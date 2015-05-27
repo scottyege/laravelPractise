@@ -179,6 +179,178 @@ class GoController extends Controller {
 								]);
 	}
 
+	public function CheckValidState()
+	{
+		//ajax
+		$all = Session::get('all');
+		$turn = Session::get('turn');
+		$step = Session::get('step');
+		$board = Session::get('board');
+		$record = Session::get('record');
+
+		$userStepId = Request::get('id');
+		$userTurn = Request::get('turn');
+
+		if($turn !== $userTurn)
+		{
+			return 'something was wrong';
+		}
+		
+		 $stepIdx = array_search($userStepId, $all);
+		if($stepIdx === FALSE)
+		{
+			return 'invalid move';
+		}
+
+		$split = explode('-', $userStepId);
+		$x = $split[1];
+		$y = $split[2];
+
+		$board[$x][$y] = $turn;
+		$result = $this->DoILive($x, $y, $turn, $board);
+		$board[$x][$y] = '';
+		if($result !== TRUE)
+		{
+			return 'you can not do this hand';
+		}
+		$board[$x][$y] = $turn;
+
+		$killingList = $this->DoKill($x, $y, $turn, $board);
+		//update the board
+		foreach ($killingList as $id) {
+			$split = explode('-', $id);
+			$x = $split[1];
+			$y = $split[2];
+
+			$board[$x][$y] = '';
+
+			array_push($all, $id);
+		}
+
+		array_splice($all, $stepIdx, 1);
+
+		$returnMsg = [
+			'valid' => true,
+			'step' => [
+				'id' => $userStepId,
+				'turn' => $turn,
+				'step' => $step
+			],
+			'kill' => $killingList
+		];
+
+		array_push($record, $returnMsg);
+
+		$step++;
+
+		//store
+		Session::put('all', $all);
+		Session::put('turn', $turn === 'black' ? 'white' : 'black');
+		Session::put('step', $step);
+		Session::put('board', $board);
+		Session::put('record', $record);
+		
+
+		return json_encode($returnMsg);
+	}
+
+	public function HCCRequestNext()
+	{
+		//ajax
+		$all = Session::get('all');
+		$turn = Session::get('turn');
+		$step = Session::get('step');
+		$board = Session::get('board');
+		$record = Session::get('record');
+
+		$x = 0;
+		$y = 0;
+		$selectedIdx = 0;
+		$selectedId = '';
+		$candidate = $all;
+		$result = FALSE;
+		$returnMsg = [];
+		do
+		{
+			$selectedIdx = rand(0, count($candidate) - 1);
+			$selectedId = $candidate[ $selectedIdx ];
+
+			$split = explode('-', $selectedId);
+			$x = $split[1];
+			$y = $split[2];
+
+			array_splice($candidate, $selectedIdx, 1);
+
+			$board[$x][$y] = $turn;
+			$result = $this->DoILive($x, $y, $turn, $board);
+			$board[$x][$y] = '';
+
+		}while($result !== TRUE && count($candidate) > 0);
+		//}while(FALSE);
+
+		if(count($candidate) == 0)
+		{
+			//no next good step
+			$returnMsg = [
+				'valid' => false,
+				'step' => [
+					'turn' => $turn,
+					'step' => $step
+				],
+				'kill' => []
+			];
+
+			array_push($record, $returnMsg);
+
+			//Session::put('all', $all);
+			Session::put('turn', $turn === 'black' ? 'white' : 'black');
+			Session::put('step', $step);
+			Session::put('record', $record);
+			//Session::put('board', $board);
+
+			return json_encode($returnMsg);
+		}
+
+		array_splice($all, array_search($selectedId, $all), 1);
+		$board[$x][$y] = $turn;
+
+		$killingList = $this->DoKill($x, $y, $turn, $board);
+
+		//update the board
+		foreach ($killingList as $id) {
+			$split = explode('-', $id);
+			$x = $split[1];
+			$y = $split[2];
+
+			$board[$x][$y] = '';
+
+			array_push($all, $id);
+		}
+
+		$returnMsg = [
+			'valid' => true,
+			'step' => [
+				'id' => $selectedId,
+				'turn' => $turn,
+				'step' => $step
+			],
+			'kill' => $killingList
+		];
+
+		array_push($record, $returnMsg);
+
+		$step++;
+
+		//store
+		Session::put('all', $all);
+		Session::put('turn', $turn === 'black' ? 'white' : 'black');
+		Session::put('step', $step);
+		Session::put('board', $board);
+		Session::put('record', $record);
+
+		return json_encode($returnMsg);			
+	}
+
 	public function RequestNext()
 	{
 		//ajax

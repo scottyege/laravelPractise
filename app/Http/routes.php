@@ -28,10 +28,13 @@ Route::get('Go/SimByStep/{n?}/{step?}', 'GoController@SimByStep')
 Route::get('Go/SimAuto/{n?}/{step?}', 'GoController@SimAuto')
 								->where('n', '[0-9]+')
 								->where('step', '[0-9]+');
+Route::get('Go/SimByStep/RequestNext', 'GoController@RequestNext');
 
+
+Route::get('Go/HCC/CheckValidState', 'GoController@CheckValidState');
+Route::get('Go/HCC/HCCRequestNext', 'GoController@HCCRequestNext');
 Route::get('Go/HCC/{n?}', 'GoController@HumanComputer');
 
-Route::get('Go/SimByStep/RequestNext', 'GoController@RequestNext');
 
 Route::get('Go/SimAuto/Store', 'GoController@Store');
 Route::get('Go/SimAuto/Show/{id}', 'GoController@Show');
