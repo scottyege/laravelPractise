@@ -1,6 +1,73 @@
 
 var g_turn = 'black';
 
+function process(data)
+{
+	var obj = JSON.parse(data);
+	if(obj.valid)
+	{
+		var target = $('#' + obj.step.id);
+		target.css({
+				'background-color': obj.step.turn,
+				'color': (obj.step.turn == 'black' ? 'white' : 'black')
+			});
+		target.attr('turn', obj.step.turn);
+
+		var informBlock = $('#information');
+		var setDiv = $(document.createElement('div'));
+		var p = $(document.createElement('p'));
+		p.text(obj.step.step + ' : ' + obj.step.turn + ' at ' + obj.step.id);
+		
+		setDiv.append(p);
+
+		//kill
+		var ul = $(document.createElement('ul'));
+		for(var i = 0; i < obj.kill.length; i++)
+		{
+			var victim = $('#' + obj.kill[i]);
+			victim.css({
+				'background-color': '',
+			});
+			victim.attr('turn', '');
+
+			var li = $(document.createElement('li'));
+			li.text((obj.step.turn == 'black' ? 'white' : 'black') + ' die at ' + obj.kill[i]);
+			li.addClass('killed');
+			ul.append(li);
+		}
+
+		setDiv.append(ul);
+		informBlock.prepend(setDiv);
+	}
+	else
+	{
+		var setDiv = $(document.createElement('div'));
+		var p = $(document.createElement('p'));
+		p.text(obj.step.step + ' : ' + obj.step.turn + ' give up');
+
+		setDiv.append(p);
+		$('#information').prepend(setDiv);
+	}
+}
+
+function shakeWindow(n) 
+{ 
+	var i,j; 
+	if(top.moveBy) 
+	{ 
+		for(i=10; i>0; i--) 
+		{
+			for(j=n; j>0; j--) 
+			{ 
+				top.moveBy(0,i); 
+				top.moveBy(i,0); 
+				top.moveBy(0,-i); 
+				top.moveBy(-i,0); 
+			} 
+		}
+	} 
+} 
+
 $(document).ready(function() {
 
 	$('.cross').attr('turn', '');
@@ -18,99 +85,14 @@ $(document).ready(function() {
 					turn: g_turn
 				},
 				success: function(data) {
-					//console.log(data);
-					var obj = JSON.parse(data);
-					//update
-					var target = $('#' + obj.step.id);
-					target.css({
-							'background-color': obj.step.turn,
-							'color': (obj.step.turn == 'black' ? 'white' : 'black')
-						});
-					target.attr('turn', obj.step.turn);
-
-					var informBlock = $('#information');
-					//informBlock.append('<p>' + obj.step.step + ' : ' + obj.step.turn + ' at ' + obj.step.id + '</p>');
-					var setDiv = $(document.createElement('div'));
-					var p = $(document.createElement('p'));
-					p.text(obj.step.step + ' : ' + obj.step.turn + ' at ' + obj.step.id);
 					
-					//informBlock.append(p);
-					setDiv.append(p);
-					//kill
-					var ul = $(document.createElement('ul'));
-					for(var i = 0; i < obj.kill.length; i++)
-					{
-						var victim = $('#' + obj.kill[i]);
-						victim.css({
-							'background-color': '',
-						});
-						victim.text('');
-						victim.attr('turn', '');
-
-						var li = $(document.createElement('li'));
-						li.text((obj.step.turn == 'black' ? 'white' : 'black') + ' die at ' + obj.kill[i]);
-						li.addClass('killed');
-						ul.append(li);
-					}
-
-					setDiv.append(ul);
-
-					informBlock.prepend(setDiv);
+					process(data);
 
 					$.ajax({
 						url: '/Go/HCC/HCCRequestNext',
 						success: function(data)
 						{
-							var obj = JSON.parse(data);
-							if(obj.valid)
-							{
-								var target = $('#' + obj.step.id);
-								target.css({
-										'background-color': obj.step.turn,
-										'color': (obj.step.turn == 'black' ? 'white' : 'black')
-									});
-								target.attr('turn', obj.step.turn);
-
-								var informBlock = $('#information');
-								//informBlock.append('<p>' + obj.step.step + ' : ' + obj.step.turn + ' at ' + obj.step.id + '</p>');
-								var setDiv = $(document.createElement('div'));
-								var p = $(document.createElement('p'));
-								p.text(obj.step.step + ' : ' + obj.step.turn + ' at ' + obj.step.id);
-								
-								//informBlock.append(p);
-								setDiv.append(p);
-
-								//kill
-								var ul = $(document.createElement('ul'));
-								for(var i = 0; i < obj.kill.length; i++)
-								{
-									var victim = $('#' + obj.kill[i]);
-									victim.css({
-										'background-color': '',
-									});
-									victim.text('');
-									victim.attr('turn', '');
-
-									var li = $(document.createElement('li'));
-									li.text((obj.step.turn == 'black' ? 'white' : 'black') + ' die at ' + obj.kill[i]);
-									li.addClass('killed');
-									ul.append(li);
-								}
-
-								setDiv.append(ul);
-
-								informBlock.prepend(setDiv);
-							}
-							else
-							{
-								//console.log('invalid move');
-								var setDiv = $(document.createElement('div'));
-								var p = $(document.createElement('p'));
-								p.text(obj.step.step + ' : ' + obj.step.turn + ' give up');
-
-								setDiv.append(p);
-								$('#information').prepend(setDiv);
-							}
+							process(data);
 						}
 					});
 				}
@@ -119,6 +101,7 @@ $(document).ready(function() {
 		else
 		{
 			console.log('invalid move');
+			shakeWindow(10);
 		}
 
 	});
