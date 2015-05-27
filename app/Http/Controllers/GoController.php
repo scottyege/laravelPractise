@@ -14,7 +14,6 @@ class GoController extends Controller {
 	public function Index()
 	{
 		$allGames = Board::all();
-
 		return view('go.Base')->with(['allGames' => $allGames]);
 	}
 
@@ -141,11 +140,18 @@ class GoController extends Controller {
 		$step++;
 
 		//store
-		Session::put('all', $all);
-		Session::put('turn', $turn === 'black' ? 'white' : 'black');
-		Session::put('step', $step);
-		Session::put('board', $board);
-		Session::put('record', $record);
+		// Session::put('all', $all);
+		// Session::put('turn', $turn === 'black' ? 'white' : 'black');
+		// Session::put('step', $step);
+		// Session::put('board', $board);
+		// Session::put('record', $record);
+		Board::SaveData([
+			'all' => $all,
+			'turn' => ($turn === 'black' ? 'white' : 'black'),
+			'step' => $step,
+			'board' => $board,
+			'record' => $record
+		]);
 		
 
 		return json_encode($returnMsg);
@@ -199,11 +205,14 @@ class GoController extends Controller {
 
 			array_push($record, $returnMsg);
 
-			//Session::put('all', $all);
-			Session::put('turn', $turn === 'black' ? 'white' : 'black');
-			Session::put('step', $step);
-			Session::put('record', $record);
-			//Session::put('board', $board);
+			// Session::put('turn', $turn === 'black' ? 'white' : 'black');
+			// Session::put('step', $step);
+			// Session::put('record', $record);
+			Board::SaveData([
+				'turn' => ($turn === 'black' ? 'white' : 'black'),
+				'step' => $step,
+				'record' => $record
+			]);
 
 			return json_encode($returnMsg);
 		}
@@ -239,11 +248,18 @@ class GoController extends Controller {
 		$step++;
 
 		//store
-		Session::put('all', $all);
-		Session::put('turn', $turn === 'black' ? 'white' : 'black');
-		Session::put('step', $step);
-		Session::put('board', $board);
-		Session::put('record', $record);
+		// Session::put('all', $all);
+		// Session::put('turn', $turn === 'black' ? 'white' : 'black');
+		// Session::put('step', $step);
+		// Session::put('board', $board);
+		// Session::put('record', $record);
+		Board::SaveData([
+			'all' => $all,
+			'turn' => ($turn === 'black' ? 'white' : 'black'),
+			'step' => $step,
+			'board' => $board,
+			'record' => $record
+		]);
 
 		return json_encode($returnMsg);			
 	}
@@ -306,11 +322,15 @@ class GoController extends Controller {
 
 			array_push($record, $returnMsg);
 
-			//Session::put('all', $all);
-			Session::put('turn', $turn === 'black' ? 'white' : 'black');
-			Session::put('step', $step);
-			Session::put('record', $record);
-			//Session::put('board', $board);
+			// Session::put('turn', $turn === 'black' ? 'white' : 'black');
+			// Session::put('step', $step);
+			// Session::put('record', $record);
+
+			Board::SaveData([
+				'turn' => ($turn === 'black' ? 'white' : 'black'),
+				'step' => $step,
+				'record' => $record
+			]);
 
 			return json_encode($returnMsg);
 		}
@@ -344,11 +364,18 @@ class GoController extends Controller {
 		array_push($record, $returnMsg);
 
 		//store
-		Session::put('all', $all);
-		Session::put('turn', $turn === 'black' ? 'white' : 'black');
-		Session::put('step', $step);
-		Session::put('board', $board);
-		Session::put('record', $record);
+		// Session::put('all', $all);
+		// Session::put('turn', $turn === 'black' ? 'white' : 'black');
+		// Session::put('step', $step);
+		// Session::put('board', $board);
+		// Session::put('record', $record);
+		Board::SaveData([
+			'all' => $all,
+			'turn' => ($turn === 'black' ? 'white' : 'black'),
+			'step' => $step,
+			'board' => $board,
+			'record' => $record
+		]);
 
 		return json_encode($returnMsg);				
 	}

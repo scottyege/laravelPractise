@@ -18,8 +18,6 @@ class Board extends Model {
 		$board = [];
 		$record = [];
 
-		SESSION::put('n', $n);
-
 		for($i = 0; $i < $n; $i++)
 		{
 			$row = array();
@@ -31,11 +29,27 @@ class Board extends Model {
 			array_push($board, $row);
 		}
 
-		Session::put('all', $all);
-		Session::put('turn', 'black');
-		Session::put('step', 0);
-		Session::put('board', $board);
-		Session::put('record', $record);
-		Session::put('maxSteps', $maxSteps);
+		// Session::put('n', $n);
+		// Session::put('all', $all);
+		// Session::put('turn', 'black');
+		// Session::put('step', 0);
+		// Session::put('board', $board);
+		// Session::put('record', $record);
+		// Session::put('maxSteps', $maxSteps);
+
+		Board::SaveData([
+			'n' => $n,
+			'all' => $all,
+			'turn' => 'black',
+			'step' => 0,
+			'board' => $board,
+			'record' => $record,
+			'maxSteps' => $maxSteps
+		]);
+	}
+
+	static public function SaveData($options)
+	{
+		session($options);
 	}
 }
