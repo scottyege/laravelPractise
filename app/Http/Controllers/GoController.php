@@ -56,30 +56,7 @@ class GoController extends Controller {
 
 	public function SimAuto($n = 5, $maxSteps = 10)
 	{
-		$all = [];
-		$board = [];
-		$record = [];
-
-		SESSION::put('n', $n);
-
-		for($i = 0; $i < $n; $i++)
-		{
-			$row = array();
-			for($j = 0; $j < $n; $j++)
-			{
-				array_push($all, "t-$i-$j");
-				array_push($row, '');
-			}
-			array_push($board, $row);
-		}
-
-		Session::put('all', $all);
-		Session::put('turn', 'black');
-		Session::put('step', 0);
-		Session::put('board', $board);
-		Session::put('record', $record);
-		Session::put('maxSteps', $maxSteps);
-
+		Board::CreateBoard($n, $maxSteps);
 		$allGames= Board::all();
 
 		return view('go.SimAuto')->with([
@@ -90,29 +67,7 @@ class GoController extends Controller {
 
 	public function HumanComputer($n = 7)
 	{
-		$all = [];
-		$board = [];
-		$record = [];
-
-		SESSION::put('n', $n);
-
-		for($i = 0; $i < $n; $i++)
-		{
-			$row = array();
-			for($j = 0; $j < $n; $j++)
-			{
-				array_push($all, "t-$i-$j");
-				array_push($row, '');
-			}
-			array_push($board, $row);
-		}
-
-		Session::put('all', $all);
-		Session::put('turn', 'black');
-		Session::put('step', 0);
-		Session::put('board', $board);
-		Session::put('record', $record);
-
+		Board::CreateBoard($n, 0);
 		$allGames= Board::all();
 
 		return view('go.HCC')->with([
