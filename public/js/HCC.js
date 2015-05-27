@@ -4,6 +4,9 @@ var g_turn = 'black';
 function process(data)
 {
 	var obj = JSON.parse(data);
+
+	console.log(obj);
+
 	if(obj.valid)
 	{
 		var target = $('#' + obj.step.id);

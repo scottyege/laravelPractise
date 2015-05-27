@@ -92,7 +92,7 @@ class GoController extends Controller {
 			return 'something was wrong';
 		}
 		
-		 $stepIdx = array_search($userStepId, $all);
+		$stepIdx = array_search($userStepId, $all);
 		if($stepIdx === FALSE)
 		{
 			return 'invalid move';
@@ -102,26 +102,16 @@ class GoController extends Controller {
 		$x = $split[1];
 		$y = $split[2];
 
-		$board[$x][$y] = $turn;
-		$result = $this->DoILive($x, $y, $turn, $board);
-		$board[$x][$y] = '';
+		$result = Board::DoILive($x, $y, $turn, $board);
+
 		if($result !== TRUE)
 		{
 			return 'you can not do this hand';
 		}
+
 		$board[$x][$y] = $turn;
 
-		$killingList = $this->DoKill($x, $y, $turn, $board);
-		//update the board
-		foreach ($killingList as $id) {
-			$split = explode('-', $id);
-			$x = $split[1];
-			$y = $split[2];
-
-			$board[$x][$y] = '';
-
-			array_push($all, $id);
-		}
+		$killingList = Board::DoKill($x, $y, $turn, $all, $board);
 
 		array_splice($all, $stepIdx, 1);
 
@@ -140,11 +130,6 @@ class GoController extends Controller {
 		$step++;
 
 		//store
-		// Session::put('all', $all);
-		// Session::put('turn', $turn === 'black' ? 'white' : 'black');
-		// Session::put('step', $step);
-		// Session::put('board', $board);
-		// Session::put('record', $record);
 		session([
 			'all' => $all,
 			'turn' => ($turn === 'black' ? 'white' : 'black'),
@@ -184,9 +169,7 @@ class GoController extends Controller {
 
 			array_splice($candidate, $selectedIdx, 1);
 
-			$board[$x][$y] = $turn;
-			$result = $this->DoILive($x, $y, $turn, $board);
-			$board[$x][$y] = '';
+			$result = Board::DoILive($x, $y, $turn, $board);
 
 		}while($result !== TRUE && count($candidate) > 0);
 		//}while(FALSE);
@@ -205,9 +188,6 @@ class GoController extends Controller {
 
 			array_push($record, $returnMsg);
 
-			// Session::put('turn', $turn === 'black' ? 'white' : 'black');
-			// Session::put('step', $step);
-			// Session::put('record', $record);
 			session([
 				'turn' => ($turn === 'black' ? 'white' : 'black'),
 				'step' => $step,
@@ -220,18 +200,7 @@ class GoController extends Controller {
 		array_splice($all, array_search($selectedId, $all), 1);
 		$board[$x][$y] = $turn;
 
-		$killingList = $this->DoKill($x, $y, $turn, $board);
-
-		//update the board
-		foreach ($killingList as $id) {
-			$split = explode('-', $id);
-			$x = $split[1];
-			$y = $split[2];
-
-			$board[$x][$y] = '';
-
-			array_push($all, $id);
-		}
+		$killingList = Board::DoKill($x, $y, $turn, $all, $board);
 
 		$returnMsg = [
 			'valid' => true,
@@ -248,11 +217,6 @@ class GoController extends Controller {
 		$step++;
 
 		//store
-		// Session::put('all', $all);
-		// Session::put('turn', $turn === 'black' ? 'white' : 'black');
-		// Session::put('step', $step);
-		// Session::put('board', $board);
-		// Session::put('record', $record);
 		session([
 			'all' => $all,
 			'turn' => ($turn === 'black' ? 'white' : 'black'),
@@ -301,9 +265,7 @@ class GoController extends Controller {
 
 			array_splice($candidate, $selectedIdx, 1);
 
-			$board[$x][$y] = $turn;
-			$result = $this->DoILive($x, $y, $turn, $board);
-			$board[$x][$y] = '';
+			$result = Board::DoILive($x, $y, $turn, $board);
 
 		}while($result !== TRUE && count($candidate) > 0);
 		//}while(FALSE);
@@ -322,10 +284,6 @@ class GoController extends Controller {
 
 			array_push($record, $returnMsg);
 
-			// Session::put('turn', $turn === 'black' ? 'white' : 'black');
-			// Session::put('step', $step);
-			// Session::put('record', $record);
-
 			session([
 				'turn' => ($turn === 'black' ? 'white' : 'black'),
 				'step' => $step,
@@ -338,18 +296,7 @@ class GoController extends Controller {
 		array_splice($all, array_search($selectedId, $all), 1);
 		$board[$x][$y] = $turn;
 
-		$killingList = $this->DoKill($x, $y, $turn, $board);
-
-		//update the board
-		foreach ($killingList as $id) {
-			$split = explode('-', $id);
-			$x = $split[1];
-			$y = $split[2];
-
-			$board[$x][$y] = '';
-
-			array_push($all, $id);
-		}
+		$killingList = Board::DoKill($x, $y, $turn, $all, $board);
 
 		$returnMsg = [
 			'valid' => true,
@@ -364,11 +311,6 @@ class GoController extends Controller {
 		array_push($record, $returnMsg);
 
 		//store
-		// Session::put('all', $all);
-		// Session::put('turn', $turn === 'black' ? 'white' : 'black');
-		// Session::put('step', $step);
-		// Session::put('board', $board);
-		// Session::put('record', $record);
 		session([
 			'all' => $all,
 			'turn' => ($turn === 'black' ? 'white' : 'black'),
@@ -378,157 +320,5 @@ class GoController extends Controller {
 		]);
 
 		return json_encode($returnMsg);				
-	}
-
-	//-----------------------------------------
-	private function DoILive($x, $y, $turn, $board)
-	{
-		$n = SESSION::get('n');
-		$ally = $turn;
-		$enemy = ($turn === 'black' ? 'white' : 'black');
-
-		$candidates = [];//
-		$pastCandidates = [];//have been searched
-		array_push($candidates, [$x, $y]);
-		while(!empty($candidates))
-		{
-			//$target = $candidates[count($candidates) - 1];
-			$target = array_pop($candidates);
-
-			if($target[1]-1 >= 0)
-			{
-				if($board[$target[0]][$target[1]-1] === '')
-				{
-					return true;
-				}
-				else if($board[$target[0]][$target[1]-1] === $ally)
-				{
-					$xx = $target[0];
-					$yy = $target[1] - 1;
-					if(array_search("t-$xx-$yy", $pastCandidates) === FALSE)
-						array_push($candidates, [$xx, $yy]);
-				}
-			}
-
-			if($target[0]+1 < $n)
-			{
-				if($board[$target[0]+1][$target[1]] === '')
-				{
-					return true;
-				}
-				else if($board[$target[0]+1][$target[1]] === $ally)
-				{
-					$xx = $target[0] + 1;
-					$yy = $target[1];
-					if(array_search("t-$xx-$yy", $pastCandidates) === FALSE)
-						array_push($candidates, [$xx, $yy]);
-				}
-			}
-
-			if($target[1]+1 < $n)
-			{
-				if($board[$target[0]][$target[1]+1] === '')
-				{
-					return true;
-				}
-				else if($board[$target[0]][$target[1]+1] === $ally)
-				{
-					$xx = $target[0];
-					$yy = $target[1] + 1;
-					if(array_search("t-$xx-$yy", $pastCandidates) === FALSE)
-						array_push($candidates, [$xx, $yy]);
-				}
-			}
-
-			if($target[0]-1 >= 0)
-			{
-				if($board[$target[0]-1][$target[1]] === '')
-				{
-					return true;
-				}
-				else if($board[$target[0]-1][$target[1]] === $ally)
-				{
-					$xx = $target[0] - 1;
-					$yy = $target[1];
-					if(array_search("t-$xx-$yy", $pastCandidates) === FALSE)
-						array_push($candidates, [$xx, $yy]);
-				}
-			}
-
-			array_push($pastCandidates, "t-{$target[0]}-{$target[1]}");
-		}
-
-		//return true;
-		//return false;
-		return $pastCandidates;
-	}
-
-	private function DoKill($x, $y, $turn, $board)
-	{
-		$n = SESSION::get('n');
-		$ally = $turn;
-		$enemy = ($turn === 'black' ? 'white' : 'black');
-
-		$killingList = [];
-
-		$target = [$x, $y];
-
-		if($target[1]-1 >= 0)
-		{
-			if($board[$target[0]][$target[1]-1] === $enemy)
-			{
-				$xx = $target[0];
-				$yy = $target[1] - 1;
-				$result = $this->DoILive($xx, $yy, $enemy, $board);
-				if($result !== TRUE)
-				{
-					$killingList = array_merge($killingList, $result);
-				}
-			}
-		}
-
-		if($target[0]+1 < $n)
-		{
-			if($board[$target[0]+1][$target[1]] === $enemy)
-			{
-				$xx = $target[0] + 1;
-				$yy = $target[1];
-				$result = $this->DoILive($xx, $yy, $enemy, $board);
-				if($result !== TRUE)
-				{
-					$killingList = array_merge($killingList, $result);
-				}
-			}
-		}
-
-		if($target[1]+1 < $n)
-		{
-			if($board[$target[0]][$target[1]+1] === $enemy)
-			{
-				$xx = $target[0];
-				$yy = $target[1] + 1;
-				$result = $this->DoILive($xx, $yy, $enemy, $board);
-				if($result !== TRUE)
-				{
-					$killingList = array_merge($killingList, $result);
-				}
-			}
-		}
-
-		if($target[0]-1 >= 0)
-		{
-			if($board[$target[0]-1][$target[1]] === $enemy)
-			{
-				$xx = $target[0] - 1;
-				$yy = $target[1];
-				$result = $this->DoILive($xx, $yy, $enemy, $board);
-				if($result !== TRUE)
-				{
-					$killingList = array_merge($killingList, $result);
-				}
-			}
-		}
-
-		return array_values(array_unique($killingList));
 	}
 }
