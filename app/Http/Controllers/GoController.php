@@ -87,6 +87,8 @@ class GoController extends Controller {
 		$userStepId = Request::get('id');
 		$userTurn = Request::get('turn');
 
+		$step++;
+
 		if($turn !== $userTurn)
 		{
 			return 'something was wrong';
@@ -126,8 +128,6 @@ class GoController extends Controller {
 		];
 
 		array_push($record, $returnMsg);
-
-		$step++;
 
 		//store
 		session([
