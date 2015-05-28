@@ -105,17 +105,22 @@ class GoController extends Controller {
 		$x = $split[1];
 		$y = $split[2];
 
+
 		$result = Board::DoILive($x, $y, $turn, $board);
-
-		if($result !== TRUE)
-		{
-			return 'you can not do this hand';
-		}
-
-		$board[$x][$y] = $turn;
-
+		$board[$x][$y] = $turn;//assume that this hand is legal
 		$killingList = Board::DoKill($x, $y, $turn, $all, $board);
 
+		if($result !== TRUE)
+		{//if it is a dead hand
+			if(empty($killingList) === TRUE)
+			{//and this hand can't kill anyone, so it is indeed useless, reject!!!!
+				return json_encode([
+					'valid' => false
+				]);
+			}
+		}
+
+		
 		array_splice($all, $stepIdx, 1);
 
 		$returnMsg = [
