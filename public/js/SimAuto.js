@@ -5,11 +5,8 @@ function startAutoRequest(interval)
 	myInterval = setInterval(function(){
 		$.ajax({
 				url: '/Go/SimByStep/RequestNext',
-				success: function(data) {
-					//alert(data);
-					console.log(data);
-
-					var obj = JSON.parse(data);
+				dataType: 'json',
+				success: function(obj) {
 
 					if(obj.gameOver !== undefined)
 					{
@@ -34,12 +31,10 @@ function startAutoRequest(interval)
 						target.addClass('occupied');
 
 						var informBlock = $('#information');
-						//informBlock.append('<p>' + obj.step.step + ' : ' + obj.step.turn + ' at ' + obj.step.id + '</p>');
 						var setDiv = $(document.createElement('div'));
 						var p = $(document.createElement('p'));
 						p.text(obj.step.step + ' : ' + obj.step.turn + ' at ' + obj.step.id);
 						
-						//informBlock.append(p);
 						setDiv.append(p);
 
 						//kill
@@ -65,7 +60,6 @@ function startAutoRequest(interval)
 					}
 					else
 					{
-						//console.log('invalid move');
 						var setDiv = $(document.createElement('div'));
 						var p = $(document.createElement('p'));
 						p.text(obj.step.step + ' : ' + obj.step.turn + ' give up');
@@ -102,10 +96,9 @@ $(document).ready(function() {
 	$('#saveBtn').click(function(){
 		$.ajax({
 			url: '/Go/SimAuto/Store',
+			dataType: 'json',
 			//headers: { 'X-XSRF-TOKEN' : $('#token').val() },
-			success: function(data){
-				//console.log(data);
-				var obj = JSON.parse(data);
+			success: function(obj){
 				var ol = $('#allGames');
 				ol.prepend("<li><a href='/Go/SimAuto/Show/" + obj.id + "'>" + obj.created_at + "</a></li>");
 			}

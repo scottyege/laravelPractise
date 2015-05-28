@@ -1,12 +1,8 @@
 
 var g_turn = 'black';
 
-function process(data)
+function process(obj)
 {
-	var obj = JSON.parse(data);
-
-	console.log(obj);
-
 	if(obj.valid)
 	{
 		var target = $('#' + obj.step.id);
@@ -68,19 +64,21 @@ $(document).ready(function() {
 		{
 			$.ajax({
 				url: '/Go/HCC/CheckValidState',
+				dataType: 'json',
 				data: {
 					id: e.target.id,
 					turn: g_turn
 				},
-				success: function(data) {
+				success: function(obj) {
 					
-					process(data);
+					process(obj);
 
 					$.ajax({
 						url: '/Go/SimByStep/RequestNext',
-						success: function(data)
+						dataType: 'json',
+						success: function(obj)
 						{
-							process(data);
+							process(obj);
 						}
 					});
 				}
