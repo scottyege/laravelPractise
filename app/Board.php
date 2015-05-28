@@ -70,68 +70,6 @@ class Board extends Model {
 				}
 			}
 
-			/*
-			if($target[1]-1 >= 0)
-			{
-				if($board[$target[0]][$target[1]-1] === '')
-				{
-					return TRUE;
-				}
-				else if($board[$target[0]][$target[1]-1] === $ally)
-				{
-					$xx = $target[0];
-					$yy = $target[1] - 1;
-					if(array_search("t-$xx-$yy", $pastCandidates) === FALSE)
-						array_push($candidates, [$xx, $yy]);
-				}
-			}
-
-			if($target[0]+1 < $n)
-			{
-				if($board[$target[0]+1][$target[1]] === '')
-				{
-					return TRUE;
-				}
-				else if($board[$target[0]+1][$target[1]] === $ally)
-				{
-					$xx = $target[0] + 1;
-					$yy = $target[1];
-					if(array_search("t-$xx-$yy", $pastCandidates) === FALSE)
-						array_push($candidates, [$xx, $yy]);
-				}
-			}
-
-			if($target[1]+1 < $n)
-			{
-				if($board[$target[0]][$target[1]+1] === '')
-				{
-					return TRUE;
-				}
-				else if($board[$target[0]][$target[1]+1] === $ally)
-				{
-					$xx = $target[0];
-					$yy = $target[1] + 1;
-					if(array_search("t-$xx-$yy", $pastCandidates) === FALSE)
-						array_push($candidates, [$xx, $yy]);
-				}
-			}
-
-			if($target[0]-1 >= 0)
-			{
-				if($board[$target[0]-1][$target[1]] === '')
-				{
-					return TRUE;
-				}
-				else if($board[$target[0]-1][$target[1]] === $ally)
-				{
-					$xx = $target[0] - 1;
-					$yy = $target[1];
-					if(array_search("t-$xx-$yy", $pastCandidates) === FALSE)
-						array_push($candidates, [$xx, $yy]);
-				}
-			}
-			*/
-
 			array_push($pastCandidates, "t-{$target[0]}-{$target[1]}");
 		}
 
@@ -148,13 +86,19 @@ class Board extends Model {
 	{
 		$n = session('n');
 
-		$ally = $turn;
 		$enemy = ($turn === 'black' ? 'white' : 'black');
 
 		$killingList = [];
 
 		$target = [$x, $y];
 
+		for($i = -1; $i < 2; $i+=2)
+		{
+			self::KillCheck($target[0] + $i, $target[1], $enemy, $board, $n, $killingList);//west to east
+			self::KillCheck($target[0], $target[1] + $i, $enemy, $board, $n, $killingList);//north to south
+		}
+
+		/*
 		if($target[1]-1 >= 0)
 		{
 			if($board[$target[0]][$target[1]-1] === $enemy)
@@ -210,6 +154,7 @@ class Board extends Model {
 				}
 			}
 		}
+		*/
 
 		$killingList = array_values(array_unique($killingList));
 		foreach ($killingList as $id) {
@@ -241,5 +186,20 @@ class Board extends Model {
 		}
 
 		return FALSE;
+	}
+
+	static public function KillCheck($x, $y, $enemy, $board, $n, &$killingList)
+	{
+		if(($x >= 0) && ($x < $n) && ($y >= 0) && ($y < $n))
+		{
+			if($board[$x][$y] === $enemy)
+			{
+				$result = self::DoILive($x, $y, $enemy, $board);
+				if($result !== TRUE)
+				{
+					$killingList = array_merge($killingList, $result);
+				}
+			}
+		}
 	}
 }
