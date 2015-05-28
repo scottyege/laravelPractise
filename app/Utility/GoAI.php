@@ -48,8 +48,9 @@ class GoAI
 			array_splice($candidate, $selectedIdx, 1);
 
 			$result = Board::DoILive($x, $y, $turn, $board);
+			$isEye = self::EyeCheck($x, $y, $turn, $board);
 
-		}while($result !== TRUE && count($candidate) > 0);
+		}while(($result !== TRUE || $isEye === TRUE) && count($candidate) > 0);
 
 		if(count($candidate) == 0)
 		{
@@ -111,6 +112,34 @@ class GoAI
 		// ];
 
 		return json_encode($returnMsg);
+	}
+
+	static private function EyeCheck($x, $y, $turn, $board)
+	{
+		$result = TRUE;
+		for($i = -1; $i < 2; $i+=2)
+		{
+			$result = (($result && self::IsAlly($x + $i, $y, $turn, $board))
+			 && self::IsAlly($x, $y + $i, $turn, $board));
+		}
+
+		return $result;
+	}
+
+	static private function IsAlly($x, $y, $ally, $board)
+	{
+		$n = session('n');
+		if(($x < 0) || ($x >= $n) || ($y < 0) || ($y >= $n))
+		{
+			return TRUE; //assume the border is ally...
+		}
+
+		if($board[$x][$y] === $ally)
+		{
+			return TRUE;
+		}
+
+		return FALSE;
 	}
 }
 

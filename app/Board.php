@@ -98,64 +98,6 @@ class Board extends Model {
 			self::KillCheck($target[0], $target[1] + $i, $enemy, $board, $n, $killingList);//north to south
 		}
 
-		/*
-		if($target[1]-1 >= 0)
-		{
-			if($board[$target[0]][$target[1]-1] === $enemy)
-			{
-				$xx = $target[0];
-				$yy = $target[1] - 1;
-				$result = self::DoILive($xx, $yy, $enemy, $board);
-				if($result !== TRUE)
-				{
-					$killingList = array_merge($killingList, $result);
-				}
-			}
-		}
-
-		if($target[0]+1 < $n)
-		{
-			if($board[$target[0]+1][$target[1]] === $enemy)
-			{
-				$xx = $target[0] + 1;
-				$yy = $target[1];
-				$result = self::DoILive($xx, $yy, $enemy, $board);
-				if($result !== TRUE)
-				{
-					$killingList = array_merge($killingList, $result);
-				}
-			}
-		}
-
-		if($target[1]+1 < $n)
-		{
-			if($board[$target[0]][$target[1]+1] === $enemy)
-			{
-				$xx = $target[0];
-				$yy = $target[1] + 1;
-				$result = self::DoILive($xx, $yy, $enemy, $board);
-				if($result !== TRUE)
-				{
-					$killingList = array_merge($killingList, $result);
-				}
-			}
-		}
-
-		if($target[0]-1 >= 0)
-		{
-			if($board[$target[0]-1][$target[1]] === $enemy)
-			{
-				$xx = $target[0] - 1;
-				$yy = $target[1];
-				$result = self::DoILive($xx, $yy, $enemy, $board);
-				if($result !== TRUE)
-				{
-					$killingList = array_merge($killingList, $result);
-				}
-			}
-		}
-		*/
-
 		$killingList = array_values(array_unique($killingList));
 		foreach ($killingList as $id) {
 			$split = explode('-', $id);
