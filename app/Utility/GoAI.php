@@ -48,7 +48,16 @@ class GoAI
 			array_splice($candidate, $selectedIdx, 1);
 
 			$result = Board::DoILive($x, $y, $turn, $board);
-			$isEye = self::EyeCheck($x, $y, $turn, $board);
+			$isEye = self::EyeCheck($x, $y, $turn, $board);//prevent from filling the eye
+
+			$board[$x][$y] = $turn;
+			$killingList = Board::DoKill($x, $y, $turn, $all, $board);
+			$board[$x][$y] = '';
+
+			if(empty($killingList) === FALSE)
+			{
+				$result = TRUE;
+			}
 
 		}while(($result !== TRUE || $isEye === TRUE) && count($candidate) > 0);
 
@@ -78,7 +87,7 @@ class GoAI
 		array_splice($all, array_search($selectedId, $all), 1);
 		$board[$x][$y] = $turn;
 
-		$killingList = Board::DoKill($x, $y, $turn, $all, $board);
+		//$killingList = Board::DoKill($x, $y, $turn, $all, $board);
 
 		$returnMsg = [
 			'valid' => true,
