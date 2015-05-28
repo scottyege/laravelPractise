@@ -31,6 +31,7 @@ function startAutoRequest(interval)
 								'color': (obj.step.turn == 'black' ? 'white' : 'black')
 							});
 						target.text(obj.step.step);
+						target.addClass('occupied');
 
 						var informBlock = $('#information');
 						//informBlock.append('<p>' + obj.step.step + ' : ' + obj.step.turn + ' at ' + obj.step.id + '</p>');
@@ -50,6 +51,7 @@ function startAutoRequest(interval)
 								'background-color': '',
 							});
 							victim.text('');
+							victim.removeClass('occupied');
 
 							var li = $(document.createElement('li'));
 							li.text((obj.step.turn == 'black' ? 'white' : 'black') + ' die at ' + obj.kill[i]);

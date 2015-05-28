@@ -42,6 +42,7 @@
 
 	<div id='nav'>
 		<ul>
+			<li><a href="/Go/HCC/7">打電腦</a></li>
 			<li><a href="/Go/SimAuto/7/15">產生新局</a></li>
 		<ul>
 

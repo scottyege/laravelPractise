@@ -15,6 +15,7 @@ function process(data)
 				'color': (obj.step.turn == 'black' ? 'white' : 'black')
 			});
 		target.attr('turn', obj.step.turn);
+		target.addClass('occupied');
 
 		var informBlock = $('#information');
 		var setDiv = $(document.createElement('div'));
@@ -32,6 +33,8 @@ function process(data)
 				'background-color': '',
 			});
 			victim.attr('turn', '');
+			victim.removeClass('occupied');
+
 
 			var li = $(document.createElement('li'));
 			li.text((obj.step.turn == 'black' ? 'white' : 'black') + ' die at ' + obj.kill[i]);

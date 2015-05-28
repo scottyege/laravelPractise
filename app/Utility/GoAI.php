@@ -101,16 +101,6 @@ class GoAI
 			'record' => $record
 		]);
 
-		// $returnMsg = [
-		// 	'valid' => true,
-		// 	'step' => [
-		// 		'id' => '100',
-		// 		'turn' => 'whadsf',
-		// 		'step' => 100
-		// 	],
-		// 	'kill' => 'gg'
-		// ];
-
 		return json_encode($returnMsg);
 	}
 
