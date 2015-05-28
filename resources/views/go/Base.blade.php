@@ -42,8 +42,8 @@
 
 	<div id='nav'>
 		<ul>
-			<li><a href="/Go/HCC/7">打電腦</a></li>
-			<li><a href="/Go/SimAuto/7/15">產生新局</a></li>
+			<li><a class="btn btn-default" href="/Go/HCC/7">打電腦</a></li>
+			<li><a class="btn btn-default" href="/Go/SimAuto/7/15">產生新局</a></li>
 		<ul>
 
 		<ol id='allGames'>

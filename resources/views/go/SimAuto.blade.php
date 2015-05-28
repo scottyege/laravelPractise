@@ -34,10 +34,10 @@ SimAuto
 	<input id="token" type="hidden" value="{{$encrypted_token}}">
 
 	<div id='content'>
-		<a id='startBtn' class="btn btn-default btn-lg">Start</a>
-		<a id='stopBtn' class="btn btn-default btn-lg">Stop</a>
+		<a id='startBtn' class="btn btn-default btn-lg btn-success">Start</a>
+		<a id='stopBtn' class="btn btn-default btn-lg btn-danger">Stop</a>
 
-		<a id='saveBtn' class="btn btn-default btn-lg">Save</a>
+		<a id='saveBtn' class="btn btn-default btn-lg btn-warning">Save</a>
 		<table id='t1'>
 			<?php
 				$nminus1 = $n - 1;

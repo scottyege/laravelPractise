@@ -23,8 +23,8 @@
 
 @section('main')
 	<div id='content'>
-		<a id='playBtn' class="btn btn-default btn-lg">Play</a>
-		<a id='stopBtn' class="btn btn-default btn-lg">Stop</a>
+		<a id='playBtn' class="btn btn-success btn-lg">Play</a>
+		<a id='stopBtn' class="btn btn-danger btn-lg">Stop</a>
 
 		<table id='t1'>
 			<?php
