@@ -60,6 +60,17 @@ class Board extends Model {
 		{
 			$target = array_pop($candidates);
 
+			for($i = -1; $i < 2; $i+=2)
+			{
+				$WE = self::LiveCheck($target[0] + $i, $target[1], $ally, $board, $n, $pastCandidates, $candidates);//west to east
+				$NS = self::LiveCheck($target[0], $target[1] + $i, $ally, $board, $n, $pastCandidates, $candidates);//north to south
+				if($WE === TRUE || $NS === TRUE)
+				{
+					return TRUE;
+				}
+			}
+
+			/*
 			if($target[1]-1 >= 0)
 			{
 				if($board[$target[0]][$target[1]-1] === '')
@@ -119,6 +130,7 @@ class Board extends Model {
 						array_push($candidates, [$xx, $yy]);
 				}
 			}
+			*/
 
 			array_push($pastCandidates, "t-{$target[0]}-{$target[1]}");
 		}
@@ -211,5 +223,23 @@ class Board extends Model {
 		}
 
 		return $killingList;
+	}
+
+	static public function LiveCheck($x, $y, $ally, $board, $n, &$pastCandidates, &$candidates)
+	{
+		if(($x >= 0) && ($x < $n) && ($y >= 0) && ($y < $n))
+		{
+			if($board[$x][$y] === '')
+			{
+				return TRUE;
+			}
+			else if($board[$x][$y] === $ally)
+			{
+				if(array_search("t-$x-$y", $pastCandidates) === FALSE)
+					array_push($candidates, [$x, $y]);
+			}
+		}
+
+		return FALSE;
 	}
 }
