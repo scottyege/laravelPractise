@@ -144,4 +144,12 @@ class Board extends Model {
 			}
 		}
 	}
+
+	static public function AtBorder($x, $y, $board)
+	{
+		$n = session('n');
+		$nMinus1 = $n - 1;
+
+		return ($x == 0 || $x == $nMinus1 || $y == 0 || $y == $nMinus1);
+	}
 }

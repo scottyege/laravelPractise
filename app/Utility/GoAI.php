@@ -49,6 +49,8 @@ class GoAI
 
 			$result = Board::DoILive($x, $y, $turn, $board);
 			$isEye = self::EyeCheck($x, $y, $turn, $board);//prevent from filling the eye
+			$shouldPlaceBorder = self::ShouldPlaceBorder($x, $y, $turn, $board);
+			//$shouldPlaceBorder = TRUE;
 
 			$board[$x][$y] = $turn;
 			$killingList = Board::DoKill($x, $y, $turn, $all, $board);
@@ -59,7 +61,7 @@ class GoAI
 				$result = TRUE;
 			}
 
-		}while(($result !== TRUE || $isEye === TRUE) && count($candidate) > 0);
+		}while(($result !== TRUE || $isEye === TRUE || $shouldPlaceBorder === FALSE) && count($candidate) > 0);
 
 		if(count($candidate) == 0)
 		{
@@ -139,6 +141,41 @@ class GoAI
 		}
 
 		return FALSE;
+	}
+
+	static private function IsAllyBorderEnemy($x, $y, $ally, $board)
+	{
+		$n = session('n');
+		if(($x < 0) || ($x >= $n) || ($y < 0) || ($y >= $n))
+		{
+			return FALSE; //assume the border is enemy...
+		}
+
+		if($board[$x][$y] === $ally)
+		{
+			return TRUE;
+		}
+
+		return FALSE;
+	}
+
+	static private function ShouldPlaceBorder($x, $y, $turn, $board)
+	{
+		$n = session('n');
+
+		if(Board::AtBorder($x, $y, $board) === FALSE)	
+		{//you are not at border
+			return TRUE;
+		}
+
+		$result = FALSE;
+		for($i = -1; $i < 2; $i+=2)
+		{
+			$result = (($result || self::IsAllyBorderEnemy($x + $i, $y, $turn, $board))
+			 || self::IsAllyBorderEnemy($x, $y + $i, $turn, $board));
+		}
+
+		return $result;
 	}
 }
 
