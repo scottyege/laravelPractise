@@ -41,6 +41,7 @@
 	top:100px;
 	left: 10px;
 	text-align: center;
+	overflow: auto;
 }
 
 #content {
