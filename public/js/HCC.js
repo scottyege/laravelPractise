@@ -4,10 +4,10 @@ var g_turn = 'black';
 function process(obj)
 {
 
-	if(obj.all !== undefined)
-	{
-		console.log(obj.all);
-	}
+	// if(obj.all !== undefined)
+	// {
+	// 	console.log(obj.all);
+	// }
 
 	if(obj.valid)
 	{
@@ -100,4 +100,27 @@ $(document).ready(function() {
 
 	});
 
+	$('#passBtn').click(function(){
+		$.ajax({
+			url: '/Go/HCC/CheckValidState',
+			dataType: 'json',
+			data: {
+				pass: 'pass'
+			},
+			success: function(obj) {
+				
+				process(obj);
+
+				$.ajax({
+					url: '/Go/SimByStep/RequestNext',
+					dataType: 'json',
+					success: function(obj)
+					{
+						console.log(obj);
+						process(obj);
+					}
+				});
+			}
+		});
+	});
 });

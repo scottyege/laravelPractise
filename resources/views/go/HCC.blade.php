@@ -35,6 +35,8 @@ Human Computer Chess
 
 	<div id='content'>
 		
+		<a id='passBtn' class="btn btn-success btn-lg">Pass</a>
+
 		<table id='t1'>
 			<?php
 				$nminus1 = $n - 1;

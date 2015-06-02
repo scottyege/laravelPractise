@@ -15,6 +15,7 @@ class GoAI
 		$board = Session::get('board');
 		$record = Session::get('record');
 		$maxSteps = Session::get('maxSteps');
+		$passCount = Session::get('passCount');
 
 		$step++;
 		//update
@@ -76,13 +77,25 @@ class GoAI
 				'kill' => []
 			];
 
+			$passCount++;
+
 			array_push($record, $returnMsg);
 
 			session([
 				'turn' => ($turn === 'black' ? 'white' : 'black'),
 				'step' => $step,
-				'record' => $record
+				'record' => $record,
+				'passCount' => $passCount
 			]);
+
+			if($passCount >= 2)
+			{
+				return json_encode([
+					'valid' => false,
+					'msg' => 'GGGGGGGGGGGGGGGGGGGGGGGGGG',
+					'passCount' => $passCount
+				]);
+			}
 
 			return json_encode($returnMsg);
 		}
@@ -100,11 +113,12 @@ class GoAI
 				'turn' => $turn,
 				'step' => $step
 			],
-			'kill' => $killingList,
-			'all' => $all
+			'kill' => $killingList
 		];
 
 		array_push($record, $returnMsg);
+
+		$passCount--;
 
 		//store
 		session([
@@ -112,7 +126,8 @@ class GoAI
 			'turn' => ($turn === 'black' ? 'white' : 'black'),
 			'step' => $step,
 			'board' => $board,
-			'record' => $record
+			'record' => $record,
+			'passCount' => ($passCount < 0 ? 0 : $passCount)
 		]);
 
 		return json_encode($returnMsg);

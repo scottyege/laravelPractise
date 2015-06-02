@@ -36,7 +36,8 @@ class Board extends Model {
 			'step' => 0,
 			'board' => $board,
 			'record' => $record,
-			'maxSteps' => $maxSteps
+			'maxSteps' => $maxSteps,
+			'passCount' => 0
 		]);
 	}
 

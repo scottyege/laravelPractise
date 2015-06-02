@@ -60,6 +60,8 @@ function startAutoRequest(interval)
 					}
 					else
 					{
+						console.log(obj);
+						
 						var setDiv = $(document.createElement('div'));
 						var p = $(document.createElement('p'));
 						p.text(obj.step.step + ' : ' + obj.step.turn + ' give up');

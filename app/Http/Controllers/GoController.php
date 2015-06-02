@@ -84,11 +84,41 @@ class GoController extends Controller {
 		$step = Session::get('step');
 		$board = Session::get('board');
 		$record = Session::get('record');
+		$passCount = Session::get('passCount');
 
 		$userStepId = Request::get('id');
 		$userTurn = Request::get('turn');
+		$playerPass = Request::get('pass', '');
 
 		$step++;
+
+		if($playerPass === 'pass')
+		{
+			$passCount++;
+			if($passCount >= 2)
+			{
+				return json_encode([
+					'valid' => false,
+					'msg' => 'GGGGGGGGGGGGGGGGGGGGGGGGGG',
+					'passCount' => $passCount
+				]);
+			}
+
+			session([
+				'turn' => ($turn === 'black' ? 'white' : 'black'),
+				'step' => $step,
+				'passCount' => $passCount
+			]);
+
+			return json_encode([
+				'valid' => false,
+				'step' => [
+					'turn' => $turn,
+					'step' => $step
+				],
+				'kill' => []
+			]);
+		}
 
 		if($turn !== $userTurn)
 		{
@@ -142,13 +172,16 @@ class GoController extends Controller {
 
 		array_push($record, $returnMsg);
 
+		$passCount--;
+
 		//store
 		session([
 			'all' => $all,
 			'turn' => ($turn === 'black' ? 'white' : 'black'),
 			'step' => $step,
 			'board' => $board,
-			'record' => $record
+			'record' => $record,
+			'passCount' => ($passCount < 0 ? 0 : $passCount)
 		]);
 		
 
