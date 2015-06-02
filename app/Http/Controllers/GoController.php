@@ -114,7 +114,7 @@ class GoController extends Controller {
 
 		$result = Board::DoILive($x, $y, $turn, $board);
 		$board[$x][$y] = $turn;//assume that this hand is legal
-		$killingList = Board::DoKill($x, $y, $turn, $all, $board);
+		$killingList = Board::DoIKill($x, $y, $turn, $board);
 
 		if($result !== TRUE)
 		{//if it is a dead hand
@@ -127,7 +127,7 @@ class GoController extends Controller {
 			}
 		}
 
-		
+		Board::KillThemAll($killingList, $all, $board);
 		array_splice($all, $stepIdx, 1);
 
 		$returnMsg = [
