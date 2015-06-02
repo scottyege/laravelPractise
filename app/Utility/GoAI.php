@@ -35,6 +35,7 @@ class GoAI
 		$candidate = $all;
 		$result = FALSE;
 		$returnMsg = [];
+		$killingList = [];
 		
 		do
 		{
@@ -53,7 +54,7 @@ class GoAI
 			//$shouldPlaceBorder = TRUE;
 
 			$board[$x][$y] = $turn;
-			$killingList = Board::DoKill($x, $y, $turn, $all, $board);
+			$killingList = Board::DoIKill($x, $y, $turn, $board);
 			$board[$x][$y] = '';
 
 			if(empty($killingList) === FALSE)
@@ -90,6 +91,7 @@ class GoAI
 		$board[$x][$y] = $turn;
 
 		//$killingList = Board::DoKill($x, $y, $turn, $all, $board);
+		Board::KillThemAll($killingList, $all, $board);
 
 		$returnMsg = [
 			'valid' => true,
@@ -98,7 +100,8 @@ class GoAI
 				'turn' => $turn,
 				'step' => $step
 			],
-			'kill' => $killingList
+			'kill' => $killingList,
+			'all' => $all
 		];
 
 		array_push($record, $returnMsg);

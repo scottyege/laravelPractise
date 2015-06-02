@@ -3,6 +3,12 @@ var g_turn = 'black';
 
 function process(obj)
 {
+
+	if(obj.all !== undefined)
+	{
+		console.log(obj.all);
+	}
+
 	if(obj.valid)
 	{
 		var target = $('#' + obj.step.id);
@@ -43,9 +49,12 @@ function process(obj)
 	}
 	else
 	{
+
+		console.log(obj.msg);
+
 		var setDiv = $(document.createElement('div'));
 		var p = $(document.createElement('p'));
-		p.text(obj.step.step + ' : ' + obj.step.turn + ' give up');
+		p.text(obj.step.step + ' : ' + obj.step.turn + ' passes');
 
 		setDiv.append(p);
 		$('#information').prepend(setDiv);

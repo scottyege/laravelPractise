@@ -47,7 +47,14 @@
 #content {
 	position: relative;
 	left:300px;
+	top:100px;
 	/*background-color: green;*/
+}
+
+#scores {
+	position: absolute;
+	top: -50px;
+	left:300px;
 }
 
 .td1 {

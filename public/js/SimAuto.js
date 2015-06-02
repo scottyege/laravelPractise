@@ -78,7 +78,7 @@ $(document).ready(function() {
 	$('#saveBtn').hide();
 
 	$('#startBtn').click(function(){
-		startAutoRequest(1500);
+		startAutoRequest(1000);
 
 		$('#startBtn').hide();
 		$('#saveBtn').hide();

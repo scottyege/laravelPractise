@@ -92,13 +92,19 @@ class GoController extends Controller {
 
 		if($turn !== $userTurn)
 		{
-			return 'something was wrong';
+			return json_encode([
+					'valid' => false,
+					'msg' => 'turn is wrong'
+				]);
 		}
 		
 		$stepIdx = array_search($userStepId, $all);
 		if($stepIdx === FALSE)
 		{
-			return 'invalid move';
+			return json_encode([
+					'valid' => false,
+					'msg' => 'this pos is wrong'
+				]);
 		}
 
 		$split = explode('-', $userStepId);
@@ -115,7 +121,8 @@ class GoController extends Controller {
 			if(empty($killingList) === TRUE)
 			{//and this hand can't kill anyone, so it is indeed useless, reject!!!!
 				return json_encode([
-					'valid' => false
+					'valid' => false,
+					'msg' => 'this makes you suicide'
 				]);
 			}
 		}

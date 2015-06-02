@@ -82,7 +82,7 @@ class Board extends Model {
 	kill and
 	return an array of killed ids
 	*/
-	static public function DoKill($x, $y, $turn, &$all, &$board)
+	static public function DoIKill($x, $y, $turn, &$board)
 	{
 		$n = session('n');
 
@@ -96,17 +96,6 @@ class Board extends Model {
 		{
 			self::KillCheck($target[0] + $i, $target[1], $enemy, $board, $n, $killingList);//west to east
 			self::KillCheck($target[0], $target[1] + $i, $enemy, $board, $n, $killingList);//north to south
-		}
-
-		$killingList = array_values(array_unique($killingList));
-		foreach ($killingList as $id) {
-			$split = explode('-', $id);
-			$x = $split[1];
-			$y = $split[2];
-
-			$board[$x][$y] = '';
-
-			array_push($all, $id);
 		}
 
 		return $killingList;
@@ -151,5 +140,19 @@ class Board extends Model {
 		$nMinus1 = $n - 1;
 
 		return ($x == 0 || $x == $nMinus1 || $y == 0 || $y == $nMinus1);
+	}
+
+	static public function KillThemAll($killingList, &$all, &$board)
+	{
+		$killingList = array_values(array_unique($killingList));
+		foreach ($killingList as $id) {
+			$split = explode('-', $id);
+			$xx = $split[1];
+			$yy = $split[2];
+
+			$board[$xx][$yy] = '';
+
+			array_push($all, $id);
+		}
 	}
 }
