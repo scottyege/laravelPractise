@@ -10,7 +10,7 @@ function startAutoRequest(interval)
 
 					if(obj.gameOver !== undefined)
 					{
-						console.log('gg');
+						//console.log('gg');
 
 						clearInterval(myInterval);
 						$('#startBtn').hide();
