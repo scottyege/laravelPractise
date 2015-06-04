@@ -161,14 +161,14 @@ class Board extends Model {
 	{
 		$candidates = $all;
 
-		$allGroups = self::Grouping($candidates, $board);
+		$allGroups = self::GroupingEmpty($candidates, $board);
 		//$ss = [array_pop($candidates)];
 
 		return $allGroups;
 		//return $ss;
 	}
 
-	static private function Grouping(&$candidates, $board)
+	static private function GroupingEmpty(&$candidates, $board)
 	{
 
 		$allGroups = [];
@@ -201,10 +201,12 @@ class Board extends Model {
 			$sizeOfGroup = count($group);
 			if($sizeOfGroup > 0)
 			{
+				$color = self::IdentifyEmptyGroup($group, $board);
 				//it is a valid group
 				array_push($allGroups, [
 						'size' => $sizeOfGroup,
-						'group' => $group
+						'group' => $group,
+						'color' => $color
 				]);
 			}
 
@@ -255,6 +257,53 @@ class Board extends Model {
 		// }
 
 		return false;
+	}
+
+	static public function IdentifyEmptyGroup($group, $board)
+	{
+		$sizeOfGroup = count($group);
+
+		$color = false;
+		$result = true;
+
+		foreach ($group as $idr)
+		{
+			$split = explode('-', $idr);
+			$x = $split[1];
+			$y = $split[2];
+
+			for($i = -1; $i < 2; $i+=2)
+			{
+				$result = $result
+					&& self::CheckSurround($x + $i, $y, $board, $color)
+					&& self::CheckSurround($x, $y + $i, $board, $color);
+			}
+		}
+
+		if($color !== false && $result === true)
+			return $color;
+		return false;
+	}
+
+	static public function CheckSurround($x, $y, &$board, &$color)
+	{
+		$n = session('n');
+
+		if($x < 0 || $x >= $n || $y < 0 || $y >= $n)
+		{
+			return true;
+		}
+
+		if($color === false)
+		{
+			if($board[$x][$y] !== '')
+			{
+				$color = $board[$x][$y];
+			}
+			return true;
+		}
+
+		return ($board[$x][$y] === $color);
 	}
 
 	static public function Counting($x, $y, $board, &$count, &$firstColor, &$candidates)

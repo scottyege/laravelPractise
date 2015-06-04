@@ -1,4 +1,38 @@
 var myInterval;
+var isShowColorGroups = false;
+
+function RemoveColorGroups()
+{
+	$('.cross').removeClass('counting')
+				.css({
+					'background-color': ''
+				});
+}
+
+function ColorGroups(emptyGroups)
+{
+	//console.log('emptygroups', emptyGroups.length);
+	for(var i = 0; i < emptyGroups.length; ++i)
+	{
+		var groupObj = emptyGroups[i];
+		var group = groupObj.group;
+		var color = (groupObj.color === false ? 'red' : groupObj.color);
+
+		//console.log('color', groupObj.color);
+		//console.log('group count', group.length);
+
+		for(var j = 0; j < group.length; ++j)
+		{
+			var target = $('#' + group[j]);
+			//console.log(group[j]);
+			target.addClass('counting')
+					.css({
+						// 'background-color': '',
+						'border-color' : color
+					});
+		}
+	}
+}
 
 function startAutoRequest(interval)
 {
@@ -19,18 +53,24 @@ function startAutoRequest(interval)
 						$('#saveBtn').show();
 						$('#stopBtn').hide();
 
-						var emp = obj.possibleTerr;
-						for(var i = 0; i < emp.length; i++)
+						if(obj.emptyGroups !== undefined)
 						{
-							var target = $('#' + emp[i]);
-							target.css({
-								'background-color': 'red',
-								'border-radius': '50%',
-								'width': '40px',
-								'height': '40px'
-							});
+							ColorGroups(obj.emptyGroups);
 						}
-
+						// if(obj.possibleTerr !== undefined)
+						// {
+						// 	var emp = obj.possibleTerr;
+						// 	for(var i = 0; i < emp.length; i++)
+						// 	{
+						// 		var target = $('#' + emp[i]);
+						// 		target.css({
+						// 			'background-color': 'red',
+						// 			'border-radius': '50%',
+						// 			'width': '40px',
+						// 			'height': '40px'
+						// 		});
+						// 	}
+						// }
 						return;
 					}
 
@@ -122,12 +162,24 @@ $(document).ready(function() {
 	})
 
 	$('#countBtn').click(function(){
-		$.ajax({
-			url: '/Go/SimAuto/Count',
-			dataType: 'json',
-			success: function(obj) {
-				console.log(obj);
-			}
-		});
+
+		if(!isShowColorGroups)
+		{
+			$.ajax({
+				url: '/Go/SimAuto/Count',
+				dataType: 'json',
+				success: function(obj) {
+					console.log(obj);
+					ColorGroups(obj);
+					isShowColorGroups = true;
+				}
+			});
+		}
+		else
+		{
+			RemoveColorGroups();
+			isShowColorGroups = false;
+		}
+
 	});
 });
