@@ -10,6 +10,7 @@ function process(obj)
 		if(obj.emptyGroups !== undefined)
 		{
 			ColorGroups(obj.emptyGroups);
+			EndGameWinner(obj.emptyGroups);
 		}
 
 		return;
@@ -49,6 +50,11 @@ function process(obj)
 			li.addClass('killed');
 			ul.append(li);
 		}
+
+		//update kill count
+		var scoreDiv = $('#' + obj.step.turn + '_score');
+		var newScore = parseInt(scoreDiv.text()) + obj.kill.length;
+		scoreDiv.text(newScore);
 
 		setDiv.append(ul);
 		informBlock.prepend(setDiv);
@@ -116,6 +122,11 @@ $(document).ready(function() {
 			success: function(obj) {
 
 				process(obj);
+
+				if(obj.gameOver !== undefined)
+				{
+					return;
+				}
 
 				$.ajax({
 					url: '/Go/SimByStep/RequestNext',

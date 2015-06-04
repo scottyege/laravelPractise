@@ -303,32 +303,11 @@ class Board extends Model {
 			return true;
 		}
 
-		return ($board[$x][$y] === $color);
-	}
-
-	static public function Counting($x, $y, $board, &$count, &$firstColor, &$candidates)
-	{
-		// $n = session('n');
-		//
-		// if($x < 0 || $x >= $n || $y < 0 || $y >= $n)
-		// {
-		// 	return false;
-		// }
-		//
-		// if($board[$x][$y] === '')
-		// {
-		// 	$count++;
-		// 	if()
-		// 	array_push($group, "t-{$x}-{$y}");
-		// }
-		// else
-		// {
-		//
-		// }
-		//
-		// if($firstColor === false)
-		// {
-		//
-		// }
+		if($board[$x][$y] !== '')
+		{
+			return ($board[$x][$y] === $color);
+		}
+		
+		return true;
 	}
 }

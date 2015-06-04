@@ -35,6 +35,8 @@ Human Computer Chess
 
 	<div id='content'>
 
+		@include('go.sub.SubContent')
+
 		<a id='passBtn' class="btn btn-success btn-lg">Pass</a>
 
 		<table id='t1'>

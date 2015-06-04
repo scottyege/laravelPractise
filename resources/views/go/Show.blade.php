@@ -22,12 +22,10 @@
 
 
 @section('main')
+
 	<div id='content'>
 
-		<div id='scores'>
-			<div id='black_score' class='cross' style='background-color: black;display: inline-block;color:white;text-align: center'>0</div>
-			<div id='white_score' class='cross' style='background-color: white;display: inline-block;color:black;text-align: center'>0</div>
-		</div>
+		@include('go.sub.SubContent')
 
 		<a id='playBtn' class="btn btn-success btn-lg">Play</a>
 		<a id='stopBtn' class="btn btn-danger btn-lg">Stop</a>
@@ -96,11 +94,11 @@
 				target.text(obj[historyIdx].step.step);
 
 				var informBlock = $('#information');
-				
+
 				var setDiv = $(document.createElement('div'));
 				var p = $(document.createElement('p'));
 				p.text(obj[historyIdx].step.step + ' : ' + obj[historyIdx].step.turn + ' at ' + obj[historyIdx].step.id);
-				
+
 				//informBlock.append(p);
 				setDiv.append(p);
 
@@ -146,7 +144,7 @@
 	}
 
 	$(document).ready(function() {
-		
+
 		var record = '<?php echo $record; ?>';
 		obj = JSON.parse(record);
 		maxLenght = obj.length;
@@ -178,4 +176,3 @@
 
 	</script>
 @stop
-

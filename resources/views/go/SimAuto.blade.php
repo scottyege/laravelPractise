@@ -34,6 +34,9 @@ SimAuto
 	<input id="token" type="hidden" value="{{$encrypted_token}}">
 
 	<div id='content'>
+
+		@include('go.sub.SubContent')
+
 		<a id='startBtn' class="btn btn-default btn-lg btn-success">Start</a>
 		<a id='stopBtn' class="btn btn-default btn-lg btn-danger">Stop</a>
 		<a id='countBtn' class="btn btn-default btn-lg btn-danger">Count</a>

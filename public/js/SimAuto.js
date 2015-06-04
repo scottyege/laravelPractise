@@ -23,21 +23,9 @@ function startAutoRequest(interval)
 						if(obj.emptyGroups !== undefined)
 						{
 							ColorGroups(obj.emptyGroups);
+							EndGameWinner(obj.emptyGroups);
 						}
-						// if(obj.possibleTerr !== undefined)
-						// {
-						// 	var emp = obj.possibleTerr;
-						// 	for(var i = 0; i < emp.length; i++)
-						// 	{
-						// 		var target = $('#' + emp[i]);
-						// 		target.css({
-						// 			'background-color': 'red',
-						// 			'border-radius': '50%',
-						// 			'width': '40px',
-						// 			'height': '40px'
-						// 		});
-						// 	}
-						// }
+
 						return;
 					}
 
@@ -75,6 +63,11 @@ function startAutoRequest(interval)
 							ul.append(li);
 						}
 
+						//update kill count
+						var scoreDiv = $('#' + obj.step.turn + '_score');
+						var newScore = parseInt(scoreDiv.text()) + obj.kill.length;
+						scoreDiv.text(newScore);
+
 						setDiv.append(ul);
 
 						informBlock.prepend(setDiv);
@@ -85,7 +78,7 @@ function startAutoRequest(interval)
 
 						var setDiv = $(document.createElement('div'));
 						var p = $(document.createElement('p'));
-						p.text(obj.step.step + ' : ' + obj.step.turn + ' give up');
+						p.text(obj.step.step + ' : ' + obj.step.turn + ' passes');
 
 						setDiv.append(p);
 						$('#information').prepend(setDiv);

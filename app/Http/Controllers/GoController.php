@@ -114,12 +114,11 @@ class GoController extends Controller {
 				return json_encode([
 					'valid' => false,
 					'gameOver' => true,
-					'msg' => 'both player pass, Ji Di',
+					'msg' => 'both player pass, count!',
 					'passCount' => $passCount,
-					'inform' => 'about the result',
-					'possibleTerr' => $all,
-					'emptyGroups' => $emptyGroups,
-					'board' => $board
+					'emptyGroups' => $emptyGroups
+					// 'possibleTerr' => $all,
+					// 'board' => $board
 				]);
 			}
 
