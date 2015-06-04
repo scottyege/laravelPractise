@@ -73,6 +73,7 @@
 
 
 @section('script')
+<script src="{{ asset('/js/utility.js') }}"></script>
 <script>
 
 	var historyIdx = 0;
@@ -119,6 +120,11 @@
 					ul.append(li);
 				}
 
+				//update kill count
+				var scoreDiv = $('#' + obj[historyIdx].step.turn + '_score');
+				var newScore = parseInt(scoreDiv.text()) + obj[historyIdx].kill.length;
+				scoreDiv.text(newScore);
+
 				setDiv.append(ul);
 
 				informBlock.prepend(setDiv);
@@ -156,7 +162,7 @@
 
 			if(historyIdx < maxLenght)
 			{
-				playHistory(1500);
+				playHistory(500);
 
 				$('#playBtn').hide();
 				$('#stopBtn').show();
