@@ -26,7 +26,7 @@ class GoAI
 				return json_encode([
 					'valid' => false,
 					'gameOver' => true
-				]);			
+				]);
 			}
 		}
 
@@ -38,9 +38,10 @@ class GoAI
 		$result = FALSE;
 		$returnMsg = [];
 		$killingList = [];
-		
+
 		do
 		{
+
 			$selectedIdx = rand(0, count($candidate) - 1);
 			$selectedId = $candidate[ $selectedIdx ];
 
@@ -69,16 +70,21 @@ class GoAI
 		if(count($candidate) == 0)
 		{
 			//no next good step
+			$passCount++;
+
 			$returnMsg = [
 				'valid' => false,
 				'step' => [
 					'turn' => $turn,
 					'step' => $step
 				],
-				'kill' => []
+				'kill' => [],
+				'board' => $board,
+				'all' => $all,
+				'passCount' => $passCount
 			];
 
-			$passCount++;
+
 
 			array_push($record, $returnMsg);
 
@@ -91,12 +97,18 @@ class GoAI
 
 			if($passCount >= 2)
 			{
+
+				$emptyGroups = Board::TerritoryCounting($all, $board);
+				//$emptyGroups = [];
 				return json_encode([
 					'valid' => false,
 					'gameOver' => true,
 					'msg' => 'both player pass, Ji Di',
 					'passCount' => $passCount,
-					'inform' => 'about the result'
+					'inform' => 'about the result',
+					'possibleTerr' => $all,
+					'emptyGroups' => $emptyGroups,
+					'board' => $board
 				]);
 			}
 
@@ -184,7 +196,7 @@ class GoAI
 	{
 		$n = session('n');
 
-		if(Board::AtBorder($x, $y, $board) === FALSE)	
+		if(Board::AtBorder($x, $y, $board) === FALSE)
 		{//you are not at border
 			return TRUE;
 		}

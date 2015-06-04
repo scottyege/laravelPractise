@@ -12,7 +12,7 @@ class Board extends Model {
 
 
 	//static public function
-	static public function CreateBoard($n, $maxSteps) 
+	static public function CreateBoard($n, $maxSteps)
 	{
 		$all = [];
 		$board = [];
@@ -155,5 +155,131 @@ class Board extends Model {
 
 			array_push($all, $id);
 		}
+	}
+
+	static public function TerritoryCounting($all, $board)
+	{
+		$candidates = $all;
+
+		$allGroups = self::Grouping($candidates, $board);
+		//$ss = [array_pop($candidates)];
+
+		return $allGroups;
+		//return $ss;
+	}
+
+	static private function Grouping(&$candidates, $board)
+	{
+
+		$allGroups = [];
+
+		while(!empty($candidates))
+		{
+			$firstID = array_pop($candidates);
+			$stack = [];
+			$group = [];
+
+			array_push($stack, $firstID);
+			array_push($group, $firstID);
+
+			while(!empty($stack))
+			{
+				$id = array_pop($stack);
+
+				$split = explode('-', $id);
+				$xx = $split[1];
+				$yy = $split[2];
+
+				for($i = -1; $i < 2; $i+=2)
+				{
+					self::AddGroupEmpty($xx + $i, $yy, $board, $candidates, $group, $stack);
+					self::AddGroupEmpty($xx, $yy + $i, $board, $candidates, $group, $stack);
+				}
+
+			}
+
+			$sizeOfGroup = count($group);
+			if($sizeOfGroup > 0)
+			{
+				//it is a valid group
+				array_push($allGroups, [
+						'size' => $sizeOfGroup,
+						'group' => $group
+				]);
+			}
+
+		}
+
+		return $allGroups;
+	}
+
+	static private function AddGroupEmpty($x, $y, &$board, &$candidates, &$group, &$stack)
+	{
+		$n = session('n');
+
+		if($x < 0 || $x >= $n || $y < 0 || $y >= $n)
+		{
+			return false;
+		}
+
+		// if(($x >= 0 && $x < $n) && ($y >= 0 && $y < $n))
+		// {
+		if($board[$x][$y] === '')
+		{
+			$idr = "t-$x-$y";
+			//
+			//if(array_search($idr, $group) === false)
+			if(in_array($idr, $group) === false)
+			{
+				array_push($group, $idr);
+				array_push($stack, $idr);
+			}
+
+			// if(in_array($idr, $stack) === false)
+			// {
+			// 	array_push($stack, $idr);
+			// }
+
+			$idxInCan = array_search($idr, $candidates);
+			if($idxInCan !== false)
+			{
+				array_splice($candidates, $idxInCan, 1);
+			}
+			// if(in_array($idr, $candidates) === true)
+			// {
+			// 	array_splice($candidates, array_search($idr, $candidates), 1);
+			// }
+
+			return true;
+		}
+		// }
+
+		return false;
+	}
+
+	static public function Counting($x, $y, $board, &$count, &$firstColor, &$candidates)
+	{
+		// $n = session('n');
+		//
+		// if($x < 0 || $x >= $n || $y < 0 || $y >= $n)
+		// {
+		// 	return false;
+		// }
+		//
+		// if($board[$x][$y] === '')
+		// {
+		// 	$count++;
+		// 	if()
+		// 	array_push($group, "t-{$x}-{$y}");
+		// }
+		// else
+		// {
+		//
+		// }
+		//
+		// if($firstColor === false)
+		// {
+		//
+		// }
 	}
 }

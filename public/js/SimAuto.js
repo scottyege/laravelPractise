@@ -8,14 +8,28 @@ function startAutoRequest(interval)
 				dataType: 'json',
 				success: function(obj) {
 
+					console.log(obj);
+
 					if(obj.gameOver !== undefined)
 					{
 						//console.log('gg');
-
+						//console.log(obj);
 						clearInterval(myInterval);
 						$('#startBtn').hide();
 						$('#saveBtn').show();
 						$('#stopBtn').hide();
+
+						var emp = obj.possibleTerr;
+						for(var i = 0; i < emp.length; i++)
+						{
+							var target = $('#' + emp[i]);
+							target.css({
+								'background-color': 'red',
+								'border-radius': '50%',
+								'width': '40px',
+								'height': '40px'
+							});
+						}
 
 						return;
 					}
@@ -34,7 +48,7 @@ function startAutoRequest(interval)
 						var setDiv = $(document.createElement('div'));
 						var p = $(document.createElement('p'));
 						p.text(obj.step.step + ' : ' + obj.step.turn + ' at ' + obj.step.id);
-						
+
 						setDiv.append(p);
 
 						//kill
@@ -60,8 +74,8 @@ function startAutoRequest(interval)
 					}
 					else
 					{
-						console.log(obj);
-						
+						//console.log(obj);
+
 						var setDiv = $(document.createElement('div'));
 						var p = $(document.createElement('p'));
 						p.text(obj.step.step + ' : ' + obj.step.turn + ' give up');
@@ -70,12 +84,12 @@ function startAutoRequest(interval)
 						$('#information').prepend(setDiv);
 					}
 				}
-			});	
+			});
 		}, interval);
 }
 
 $(document).ready(function() {
-	
+
 	$('#stopBtn').hide();
 	$('#saveBtn').hide();
 
@@ -106,4 +120,14 @@ $(document).ready(function() {
 			}
 		});
 	})
+
+	$('#countBtn').click(function(){
+		$.ajax({
+			url: '/Go/SimAuto/Count',
+			dataType: 'json',
+			success: function(obj) {
+				console.log(obj);
+			}
+		});
+	});
 });

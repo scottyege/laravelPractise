@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"pass",
+				"$passCount〔variable〕"
+			],
+			[
+				"json",
+				"json_encode〔function〕"
+			],
+			[
+				"Kill",
+				"KillThemAll〔function〕"
+			],
+			[
+				"inline",
+				"inline-block〔value〕"
+			],
+			[
+				"bacgro",
+				"background-color: 〔property〕"
+			],
+			[
 				"bo",
 				"$board〔variable〕"
 			],
@@ -30,10 +50,6 @@
 			[
 				"user",
 				"$userStepId〔variable〕"
-			],
-			[
-				"json",
-				"json_encode〔function〕"
 			],
 			[
 				"has",
@@ -249,12 +265,18 @@
 	},
 	"file_history":
 	[
+		"/C/Users/scott_Chiu/Desktop/LaravelPractise/public/.htaccess",
+		"/C/Users/scott_Chiu/Desktop/LaravelPractise/public/js/SimAuto.js",
+		"/C/Users/scott_Chiu/Desktop/LaravelPractise/resources/views/go/Show.blade.php",
+		"/C/Users/scott_Chiu/Desktop/LaravelPractise/resources/views/go/SimAuto.blade.php",
+		"/C/Users/scott_Chiu/Desktop/LaravelPractise/app/Utility/Utility.php",
+		"/C/Users/scott_Chiu/Desktop/LaravelPractise/public/css/board.css",
+		"/C/Users/scott_Chiu/AppData/Roaming/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/C/Users/scott_Chiu/AppData/Roaming/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
+		"/C/Users/scott_Chiu/Desktop/LaravelPractise/.env",
 		"/C/Users/scott_Chiu/Desktop/LaravelPractise/database/seeds/DatabaseSeeder.php",
 		"/C/Users/scott_Chiu/Desktop/LaravelPractise/app/Http/routes.php",
-		"/C/Users/scott_Chiu/Desktop/LaravelPractise/public/css/board.css",
 		"/C/Users/scott_Chiu/Desktop/LaravelPractise/resources/views/go/HCC.blade.php",
-		"/C/Users/scott_Chiu/Desktop/LaravelPractise/resources/views/go/SimAuto.blade.php",
-		"/C/Users/scott_Chiu/Desktop/LaravelPractise/resources/views/go/Show.blade.php",
 		"/C/Users/scott_Chiu/Desktop/LaravelPractise/resources/views/go/Base.blade.php",
 		"/C/Users/scott_Chiu/Desktop/LaravelPractise/resources/views/app.blade.php",
 		"/C/Users/scott_Chiu/Desktop/LaravelPractise/app/Board.php",
@@ -267,7 +289,6 @@
 		"/C/Users/scott_Chiu/Desktop/LaravelPractise/app/Http/Kernel.php",
 		"/C/Users/scott_Chiu/Desktop/LaravelPractise/app/Http/Utility/Utility",
 		"/C/Users/scott_Chiu/Desktop/LaravelPractise/app/Http/Controllers/Auth/AuthController.php",
-		"/C/Users/scott_Chiu/Desktop/LaravelPractise/public/js/SimAuto.js",
 		"/C/Users/scott_Chiu/Desktop/LaravelPractise/app/Http/Controllers/GoController.php",
 		"/C/Users/scott_Chiu/Desktop/LaravelPractise/composer.lock",
 		"/C/Users/scott_Chiu/Desktop/LaravelPractise/public/js/SimByStep.js",
@@ -284,7 +305,6 @@
 		"/C/Users/scott_Chiu/Desktop/LaravelPractise/resources/views/go.blade.php",
 		"/C/Users/scott_Chiu/Desktop/LaravelPractise/resources/views/Sim.blade.php",
 		"/C/Users/scott_Chiu/Desktop/LaravelPractise/public/js/Show.js",
-		"/C/Users/scott_Chiu/Desktop/LaravelPractise/.env",
 		"/C/Users/scott_Chiu/Desktop/LaravelPractise/resources/views/test.blade.php",
 		"/C/Users/scott_Chiu/Desktop/LaravelPractise/resources/views/testsmall.blade.php",
 		"/C/Users/scott_Chiu/Desktop/LaravelPractise/public/css/app.css",
@@ -314,7 +334,6 @@
 		"/D/xampp/htdocs/laravelTest/database/migrations/2014_10_12_100000_create_password_resets_table.php",
 		"/D/xampp/htdocs/laravelTest/resources/views/welcome.blade.php",
 		"/D/xampp/htdocs/laravelTest/resources/views/home.blade.php",
-		"/C/Users/scott_Chiu/AppData/Roaming/Sublime Text 2/Packages/User/Preferences.sublime-settings",
 		"/D/xampp/htdocs/laravelTest/resources/views/hello.blade.php",
 		"/D/xampp/htdocs/laravelTest/public/index.php",
 		"/D/xampp/htdocs/laravelTest/app/Http/Controllers/WelcomeController.php",
@@ -346,7 +365,6 @@
 		"/C/Users/scott_Chiu/Desktop/TEST_1024x1024_100MB/zz.bat",
 		"//Weijhih_Wang/Upload/UIAssetPostprocessor.cs",
 		"/C/Users/scott_Chiu/Desktop/BatchBuilder.cs",
-		"/C/Users/scott_Chiu/AppData/Roaming/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
 		"/C/Users/scott_Chiu/AppData/Roaming/Sublime Text 2/Packages/Default/Default (Windows).sublime-keymap",
 		"/C/Users/scott_Chiu/AppData/Roaming/Sublime Text 2/Packages/User/JSON.sublime-settings",
 		"/C/Users/scott_Chiu/Desktop/Test data/1024x1024_testTexture/轉檔(1).bat",
@@ -379,6 +397,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"array_push",
+			"wordwrap",
 			"DoKill",
 			"SaveData",
 			"undefine",

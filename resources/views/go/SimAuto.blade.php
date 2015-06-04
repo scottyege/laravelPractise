@@ -36,6 +36,7 @@ SimAuto
 	<div id='content'>
 		<a id='startBtn' class="btn btn-default btn-lg btn-success">Start</a>
 		<a id='stopBtn' class="btn btn-default btn-lg btn-danger">Stop</a>
+		<a id='countBtn' class="btn btn-default btn-lg btn-danger">Count</a>
 
 		<a id='saveBtn' class="btn btn-default btn-lg btn-warning">Save</a>
 		<table id='t1'>
@@ -83,4 +84,3 @@ SimAuto
 @section('script')
 <script src="{{ asset('/js/SimAuto.js') }}"></script>
 @stop
-

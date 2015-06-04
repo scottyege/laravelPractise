@@ -20,7 +20,7 @@ class GoController extends Controller {
 
 	public function Normal($n = 5)
 	{
-		return view('go')->with(['n' => $n]);	
+		return view('go')->with(['n' => $n]);
 	}
 
 	public function Store()
@@ -60,9 +60,21 @@ class GoController extends Controller {
 		$allGames= Board::all();
 
 		return view('go.SimAuto')->with([
-									'n' => $n, 
+									'n' => $n,
 									'allGames' => $allGames
 								]);
+	}
+
+	public function Count()
+	{
+		$all = session('all');
+		$board = session('board');
+
+		return json_encode(Board::TerritoryCounting($all, $board));
+		// return json_encode([
+		// 		'all' => $all,
+		// 		'board' => $board
+		// ]);
 	}
 
 	public function HumanComputer($n = 7)
@@ -71,7 +83,7 @@ class GoController extends Controller {
 		$allGames= Board::all();
 
 		return view('go.HCC')->with([
-									'n' => $n, 
+									'n' => $n,
 									'allGames' => $allGames
 								]);
 	}
@@ -129,7 +141,7 @@ class GoController extends Controller {
 					'msg' => 'turn is wrong'
 				]);
 		}
-		
+
 		$stepIdx = array_search($userStepId, $all);
 		if($stepIdx === FALSE)
 		{
@@ -185,14 +197,14 @@ class GoController extends Controller {
 			'record' => $record,
 			'passCount' => ($passCount < 0 ? 0 : $passCount)
 		]);
-		
+
 
 		return json_encode($returnMsg);
 	}
 
 	public function RequestNext()
 	{
-		//ajax		
+		//ajax
 		return GoAI::GenerateNextStep();
 	}
 }
