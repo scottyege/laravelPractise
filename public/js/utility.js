@@ -54,4 +54,8 @@ function EndGameWinner(emptyGroups)
 
     console.log('winner: ', (black_score > white_score ? 'black' : 'white')
                 , ', black: ', black_score, ', white: ', white_score);
+    var winText = (black_score > white_score ? 'black' : 'white')
+                + ' wins by '
+                + (Math.abs(black_score - white_score))
+    $('#winner').text(winText);
 }
