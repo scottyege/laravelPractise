@@ -112,6 +112,18 @@ $(document).ready(function() {
 
 	});
 
+	$('#saveBtn').click(function(){
+		$.ajax({
+			url: '/Go/SimAuto/Store',
+			dataType: 'json',
+			//headers: { 'X-XSRF-TOKEN' : $('#token').val() },
+			success: function(obj){
+				var ol = $('#allGames');
+				ol.prepend("<li><a href='/Go/SimAuto/Show/" + obj.id + "'>" + obj.created_at + "</a></li>");
+			}
+		});
+	})
+
 	$('#passBtn').click(function(){
 		$.ajax({
 			url: '/Go/HCC/CheckValidState',

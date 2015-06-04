@@ -106,12 +106,23 @@ class GoController extends Controller {
 
 		if($playerPass === 'pass')
 		{
+
+			$returnMsg = [
+				'valid' => false,
+				'step' => [
+					'turn' => $turn,
+					'step' => $step
+				],
+				'kill' => []
+			];
+
+			array_push($record, $returnMsg);
+
 			$passCount++;
 			if($passCount >= 2)
 			{
 				$emptyGroups = Board::TerritoryCounting($all, $board);
-				//$emptyGroups = [];
-				return json_encode([
+				$returnMsg = [
 					'valid' => false,
 					'gameOver' => true,
 					'msg' => 'both player pass, count!',
@@ -119,23 +130,19 @@ class GoController extends Controller {
 					'emptyGroups' => $emptyGroups
 					// 'possibleTerr' => $all,
 					// 'board' => $board
-				]);
+				];
+
+				array_push($record, $returnMsg);
 			}
 
 			session([
 				'turn' => ($turn === 'black' ? 'white' : 'black'),
 				'step' => $step,
+				'record' => $record,
 				'passCount' => $passCount
 			]);
 
-			return json_encode([
-				'valid' => false,
-				'step' => [
-					'turn' => $turn,
-					'step' => $step
-				],
-				'kill' => []
-			]);
+			return json_encode($returnMsg);
 		}
 
 		if($turn !== $userTurn)

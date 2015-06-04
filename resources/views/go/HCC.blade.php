@@ -10,17 +10,7 @@ Human Computer Chess
 
 	<style type="text/css">
 
-	#startBtn, #stopBtn {
-		position: absolute;
-		top: 80px;
-		left: 100px;
-	}
-
-	#saveBtn {
-		position: absolute;
-		top: 80px;
-		left: 200px;
-	}
+	
 	</style>
 @stop
 
@@ -38,6 +28,7 @@ Human Computer Chess
 		@include('go.sub.SubContent')
 
 		<a id='passBtn' class="btn btn-success btn-lg">Pass</a>
+		<a id='saveBtn' class="btn btn-default btn-lg btn-warning">Save</a>
 
 		<table id='t1'>
 			<?php

@@ -149,7 +149,7 @@
 			{
 				var setDiv = $(document.createElement('div'));
 				var p = $(document.createElement('p'));
-				p.text(obj[historyIdx].step.step + ' : ' + obj[historyIdx].step.turn + ' give up');
+				p.text(obj[historyIdx].step.step + ' : ' + obj[historyIdx].step.turn + ' passes');
 
 				setDiv.append(p);
 				$('#information').prepend(setDiv);
