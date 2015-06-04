@@ -84,23 +84,14 @@ class GoAI
 				// 'passCount' => $passCount
 			];
 
-
-
 			array_push($record, $returnMsg);
-
-			session([
-				'turn' => ($turn === 'black' ? 'white' : 'black'),
-				'step' => $step,
-				'record' => $record,
-				'passCount' => $passCount
-			]);
 
 			if($passCount >= 2)
 			{
 
 				$emptyGroups = Board::TerritoryCounting($all, $board);
 
-				return json_encode([
+				$returnMsg = [
 					'valid' => false,
 					'gameOver' => true,
 					'msg' => 'both player pass, count!',
@@ -108,8 +99,17 @@ class GoAI
 					'emptyGroups' => $emptyGroups
 					// 'possibleTerr' => $all,
 					// 'board' => $board
-				]);
+				];
+
+				array_push($record, $returnMsg);
 			}
+
+			session([
+				'turn' => ($turn === 'black' ? 'white' : 'black'),
+				'step' => $step,
+				'record' => $record,
+				'passCount' => $passCount
+			]);
 
 			return json_encode($returnMsg);
 		}

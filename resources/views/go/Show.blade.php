@@ -85,6 +85,21 @@
 	{
 		historyInterval = setInterval(function(){
 
+			if(obj[historyIdx].gameOver !== undefined)
+			{
+				if(obj[historyIdx].emptyGroups !== undefined)
+				{
+					ColorGroups(obj[historyIdx].emptyGroups);
+					EndGameWinner(obj[historyIdx].emptyGroups);
+				}
+
+				clearInterval(historyInterval);
+				$('#playBtn').show();
+				$('#stopBtn').hide();
+
+				return;
+			}
+
 			if(obj[historyIdx].valid)
 			{
 				var target = $('#' + obj[historyIdx].step.id);
