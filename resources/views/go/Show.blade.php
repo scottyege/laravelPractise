@@ -107,6 +107,7 @@
 						'background-color': obj[historyIdx].step.turn,
 						'color': (obj[historyIdx].step.turn == 'black' ? 'white' : 'black')
 				});
+				target.addClass('occupied');
 				target.text(obj[historyIdx].step.step);
 
 				var informBlock = $('#information');
@@ -126,7 +127,7 @@
 					victim.css({
 						'background-color': '',
 					});
-
+					victim.removeClass('occupied');
 					victim.text('');
 
 					var li = $(document.createElement('li'));
