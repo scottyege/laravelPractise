@@ -34,7 +34,7 @@ Human Computer Chess
 	<input id="token" type="hidden" value="{{$encrypted_token}}">
 
 	<div id='content'>
-		
+
 		<a id='passBtn' class="btn btn-success btn-lg">Pass</a>
 
 		<table id='t1'>
@@ -80,6 +80,6 @@ Human Computer Chess
 
 
 @section('script')
+<script src="{{ asset('/js/utility.js') }}"></script>
 <script src="{{ asset('/js/HCC.js') }}"></script>
 @stop
-

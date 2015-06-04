@@ -4,10 +4,16 @@ var g_turn = 'black';
 function process(obj)
 {
 
-	// if(obj.all !== undefined)
-	// {
-	// 	console.log(obj.all);
-	// }
+	if(obj.gameOver !== undefined)
+	{
+
+		if(obj.emptyGroups !== undefined)
+		{
+			ColorGroups(obj.emptyGroups);
+		}
+
+		return;
+	}
 
 	if(obj.valid)
 	{
@@ -23,7 +29,7 @@ function process(obj)
 		var setDiv = $(document.createElement('div'));
 		var p = $(document.createElement('p'));
 		p.text(obj.step.step + ' : ' + obj.step.turn + ' at ' + obj.step.id);
-		
+
 		setDiv.append(p);
 
 		//kill
@@ -50,7 +56,7 @@ function process(obj)
 	else
 	{
 
-		console.log(obj.msg);
+		//console.log(obj.msg);
 
 		var setDiv = $(document.createElement('div'));
 		var p = $(document.createElement('p'));
@@ -79,7 +85,7 @@ $(document).ready(function() {
 					turn: g_turn
 				},
 				success: function(obj) {
-					
+
 					process(obj);
 
 					$.ajax({
@@ -108,7 +114,7 @@ $(document).ready(function() {
 				pass: 'pass'
 			},
 			success: function(obj) {
-				
+
 				process(obj);
 
 				$.ajax({
@@ -116,7 +122,7 @@ $(document).ready(function() {
 					dataType: 'json',
 					success: function(obj)
 					{
-						console.log(obj);
+						//console.log(obj);
 						process(obj);
 					}
 				});

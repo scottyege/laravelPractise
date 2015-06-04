@@ -109,12 +109,17 @@ class GoController extends Controller {
 			$passCount++;
 			if($passCount >= 2)
 			{
+				$emptyGroups = Board::TerritoryCounting($all, $board);
+				//$emptyGroups = [];
 				return json_encode([
 					'valid' => false,
 					'gameOver' => true,
 					'msg' => 'both player pass, Ji Di',
 					'passCount' => $passCount,
-					'inform' => 'about the result'
+					'inform' => 'about the result',
+					'possibleTerr' => $all,
+					'emptyGroups' => $emptyGroups,
+					'board' => $board
 				]);
 			}
 

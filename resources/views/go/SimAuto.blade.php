@@ -82,5 +82,6 @@ SimAuto
 
 
 @section('script')
+<script src="{{ asset('/js/utility.js') }}"></script>
 <script src="{{ asset('/js/SimAuto.js') }}"></script>
 @stop
